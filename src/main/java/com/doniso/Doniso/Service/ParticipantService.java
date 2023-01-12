@@ -13,7 +13,6 @@ public interface ParticipantService {
 
     Optional<Participant> lireParID(Long idPart);
 
-
     Participant modifier(Long idPart, Participant participant);
 
     String supprimer(Long idPart);

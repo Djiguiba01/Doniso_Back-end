@@ -27,7 +27,7 @@ public class ParticipantControl {
     }
 
     @GetMapping("/voir/{idPart}")
-    public Optional<Participant> reada(@PathVariable("idPart") Long idPart){
+    public Optional<Participant> read(@PathVariable("idPart") Long idPart){
         return participantService.lireParID(idPart);
     }
 
