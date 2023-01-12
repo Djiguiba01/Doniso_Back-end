@@ -1,5 +1,6 @@
 package com.doniso.Doniso.payload.request;
 
+import com.doniso.Doniso.Models.Sexe;
 import lombok.Data;
 
 import javax.validation.constraints.*;
@@ -33,6 +34,8 @@ public class SignupRequest {
   @Size(min = 3, max = 50)
   @Email
   private String email;
+
+  private String sexe;
 
 
 

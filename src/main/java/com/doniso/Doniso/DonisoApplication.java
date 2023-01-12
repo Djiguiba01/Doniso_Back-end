@@ -44,7 +44,7 @@ public class DonisoApplication  implements CommandLineRunner{
 			Set<Role> roles = new HashSet<>();
 			Role role = roleRepository.findByName(ERole.ROLE_ADMIN);
 			roles.add(role);
-			Utilisateurs utilisateurs = new Utilisateurs("djiguiba","effet", "Développeur", "73100973",  "photo.png" , encoder.encode( "1234"),"djiguibabarema@gmail.com");
+			Utilisateurs utilisateurs = new Utilisateurs("djiguiba","effet", "Développeur", "73100973",  "photo.png" , Sexe.HOMME, encoder.encode( "1234"),"djiguibabarema@gmail.com");
 			utilisateurs.setRoles(roles);
 			utilisateursRepository.save(utilisateurs);
 		}

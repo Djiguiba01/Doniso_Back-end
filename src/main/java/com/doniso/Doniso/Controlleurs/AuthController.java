@@ -3,6 +3,7 @@ package com.doniso.Doniso.Controlleurs;
 import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.ERole;
 import com.doniso.Doniso.Models.Role;
+import com.doniso.Doniso.Models.Sexe;
 import com.doniso.Doniso.Models.Utilisateurs;
 import com.doniso.Doniso.Repository.RoleRepository;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
@@ -147,10 +148,15 @@ public class AuthController {
     //envoie le nom, url et le fichier à la classe ConfigImages qui se chargera de sauvegarder l'image
     ConfigImages.saveimg(url, nomfile, file);
 
+
+
     //converssion du string reçu en classe SignupRequest
     SignupRequest signUpRequest = new JsonMapper().readValue(donneesuser, SignupRequest.class);
 
+
+
     signUpRequest.setPhoto(nomfile);
+
 
     if (utilisateursRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
@@ -167,10 +173,10 @@ public class AuthController {
     }
 
     // Create new user's account
-    Utilisateurs utilisateurs = new Utilisateurs(signUpRequest.getUsername(),signUpRequest.getProfession(),
-               signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()), signUpRequest.getContact(),
-                signUpRequest.getNomcomplet(), signUpRequest.getPhoto()
+    Utilisateurs utilisateurs = new Utilisateurs(signUpRequest.getUsername(), signUpRequest.getNomcomplet(), signUpRequest.getProfession(),
+            signUpRequest.getContact(), signUpRequest.getEmail(),
+               encoder.encode(signUpRequest.getPassword())
+                , signUpRequest.getPhoto()
             );
 
     //on recupere le role de l'user dans un tableau ordonné de type string
@@ -206,6 +212,13 @@ public class AuthController {
 
     //on ajoute le role au collaborateur
     utilisateurs.setRoles(roles);
+
+    if(signUpRequest.getSexe().equals("homme")){
+      utilisateurs.setSexe(Sexe.HOMME);
+    }else {
+      utilisateurs.setSexe(Sexe.FEMME);
+    }
+
     utilisateursRepository.save(utilisateurs);
     //em
     //mailSender.send(emailConstructor.constructNewUserEmail(utilisateurs));

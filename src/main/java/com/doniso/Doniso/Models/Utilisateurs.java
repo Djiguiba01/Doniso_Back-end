@@ -53,6 +53,10 @@ public class Utilisateurs {
   @Size(max = 120)
   private String contact;
 
+  @Enumerated(EnumType.STRING)
+  @Column(length = 20)
+  private Sexe sexe;
+
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -63,7 +67,7 @@ public class Utilisateurs {
   public Utilisateurs() {
   }
 
-  public Utilisateurs(String username, String nomcomplet, String profession, String contact,String photo,  String password, String email)
+  public Utilisateurs(String username, String nomcomplet, String profession, String contact,String photo, Sexe sexe,  String password, String email)
   {
     this.username = username;
     this.nomcomplet = nomcomplet;
@@ -73,7 +77,20 @@ public class Utilisateurs {
     this.photo = photo;
     this.password = password;
     this.email = email;
+    this.sexe = sexe;
   }
+
+  public Utilisateurs(String username, String nomcomplet, String profession, String contact, String email, String encode, String photo) {
+    this.username = username;
+    this.nomcomplet = nomcomplet;
+    this.profession = profession;
+    this.contact = contact;
+//Sexe
+    this.photo = photo;
+    this.password = encode;
+    this.email = email;
+  }
+
 
   public Long getId() {
     return id;
