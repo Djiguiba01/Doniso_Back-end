@@ -32,7 +32,7 @@ public class UtilisateursDetailsServiceImpl implements UserDetailsService {
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Utilisateurs user = utilisateursRepository.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("collaborateur non trouvé: " + username));
+        .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé: " + username));
 
     return UtilisateursDetails.build(user);
   }

@@ -195,6 +195,6 @@ public class AuthController {
     utilisateurs.setRoles(roles);
     utilisateursRepository.save(utilisateurs);
 
-    return ResponseEntity.ok(new MessageResponse("Collaborateur enregistré avec succès!"));
+    return ResponseEntity.ok(new MessageResponse("Utilisateur enregistré avec succès!"));
   }
 }

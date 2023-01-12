@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Repository.ParticipantRepo;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,6 +27,12 @@ public class ParticipantServiceImpl implements ParticipantService{
     public List<Participant> lire() {
         return participantRepo.findAll();
     }
+
+    @Override
+    public Optional<Participant> lireParID(Long idPart) {
+        return participantRepo.findById(idPart);
+    }
+
 
     @Override
     public Participant modifier(Long idPart, Participant participant) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/participant")
@@ -23,6 +24,11 @@ public class ParticipantControl {
     @GetMapping("/voir")
     public List<Participant> read(){
         return participantService.lire();
+    }
+
+    @GetMapping("/voir/{idPart}")
+    public Optional<Participant> reada(@PathVariable("idPart") Long idPart){
+        return participantService.lireParID(idPart);
     }
 
     @PutMapping("/update/{idPart}")

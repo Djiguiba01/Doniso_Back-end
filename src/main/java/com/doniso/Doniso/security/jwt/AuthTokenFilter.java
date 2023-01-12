@@ -81,7 +81,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
       /*
         SecurityContextHolder permet d'accéder au SecurityContext.
-        SecurityContextdétient les Authenticationinformations de sécurité et éventuellement spécifiques à la demande.
+        SecurityContext détient les Authenticationinformations de sécurité et éventuellement spécifiques à la demande.
         Authenticationreprésente le principal qui inclut GrantedAuthorityqui reflète les autorisations à l'échelle de l'application accordées à un principal.
        */
 

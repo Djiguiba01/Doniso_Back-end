@@ -20,7 +20,6 @@ public class BienvenuController {
   private static final Logger log = LoggerFactory.getLogger(BienvenuController.class);
 
 
-
   @GetMapping("/user")
   @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   public String allAccess() {
@@ -38,7 +37,7 @@ public class BienvenuController {
       String username = ((UserDetails)principal).getUsername();
       Collection<? extends GrantedAuthority> role = ((UserDetails)principal).getAuthorities();
 
-      log.info("bienvenue controlleur");
+      log.info("Bienvenue utilisateurs");
       return "Bienvenue " + username + " Votre role est  " + role.toString().substring(1, role.toString().length()-1);
   }
 
