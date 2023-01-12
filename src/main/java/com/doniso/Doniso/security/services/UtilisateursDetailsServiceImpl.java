@@ -23,9 +23,8 @@ public class UtilisateursDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UtilisateursRepository utilisateursRepository;
-
-  @Autowired
-  RoleRepository roleRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
   //recupere les details du collaborateur
   @Override

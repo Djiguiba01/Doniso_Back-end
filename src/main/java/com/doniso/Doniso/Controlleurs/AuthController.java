@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.ERole;
 import com.doniso.Doniso.Models.Role;
 import com.doniso.Doniso.Models.Utilisateurs;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,6 +40,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+  /// em
+  @Autowired
+  private EmailConstructor emailConstructor;
+
+  @Autowired
+  private JavaMailSender mailSender;
+
   private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
   @Autowired
@@ -57,7 +66,7 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   //@Valid assure la validation de l'ensemble de l'objet
-  @PostMapping("/signin")
+  @PostMapping("/connexion")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     String url = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
@@ -124,7 +133,7 @@ public class AuthController {
   }
 
   //@PreAuthorize("hasRole('ADMIN')")
-  @PostMapping("/signup")//@valid s'assure que les données soit validées
+  @PostMapping("/inscription")//@valid s'assure que les données soit validées
   public ResponseEntity<?> registerUser(@Valid @RequestParam(value = "file", required = true) MultipartFile file,
                                         @Valid  @RequestParam(value = "donneesuser") String donneesuser) throws IOException {
 
@@ -181,6 +190,10 @@ public class AuthController {
           Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
           roles.add(adminRole);
 
+            case "formateur"://si le role est à égale à admin
+              Role formateurRole = roleRepository.findByName(ERole.ROLE_FORMATEUR);
+              roles.add(formateurRole);
+
           break;
         default://dans le cas écheant
 
@@ -194,7 +207,10 @@ public class AuthController {
     //on ajoute le role au collaborateur
     utilisateurs.setRoles(roles);
     utilisateursRepository.save(utilisateurs);
+    //em
+    //mailSender.send(emailConstructor.constructNewUserEmail(utilisateurs));
 
     return ResponseEntity.ok(new MessageResponse("Utilisateur enregistré avec succès!"));
   }
+
 }

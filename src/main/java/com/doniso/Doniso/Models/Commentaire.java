@@ -23,4 +23,7 @@ public class Commentaire {
 
     private String description;
 
+    @ManyToOne
+  private Formation formation;
+
 }

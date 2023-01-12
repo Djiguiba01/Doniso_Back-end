@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="Formation")
@@ -48,4 +50,8 @@ public class Formation {
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(length = 16)
     private LocalDate datefin;
+
+    // Liaison
+    @OneToMany(mappedBy = "formation")
+    List<Commentaire> commentaires = new ArrayList<>();
 }
