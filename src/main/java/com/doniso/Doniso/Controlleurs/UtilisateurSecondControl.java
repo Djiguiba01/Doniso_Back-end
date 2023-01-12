@@ -1,7 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
 import com.doniso.Doniso.Models.Utilisateurs;
-import com.doniso.Doniso.Repository.UtilisateurSecondRepo;
 import com.doniso.Doniso.Service.UtilisateurSecondService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
