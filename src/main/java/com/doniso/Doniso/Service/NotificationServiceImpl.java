@@ -34,8 +34,7 @@ public class NotificationServiceImpl implements  NotificationService{
         return notificationRepo.findById(idNotif)
                 .map(n-> {
                     n.setTitre(notification.getTitre());
-                    n.setLieu(notification.getLieu());
-                    n.setContact(notification.getContact());
+                    n.setDescription(notification.getDescription());
                     return  notificationRepo.save(n);
                 }).orElseThrow(() -> new RuntimeException("Notification non trouvée !!"));
     }

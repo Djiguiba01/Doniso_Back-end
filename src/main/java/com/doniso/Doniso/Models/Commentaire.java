@@ -23,6 +23,9 @@ public class Commentaire {
 
     private String description;
 
+    boolean b1 =  Boolean . parseBoolean( " Vrai " );
+
+    // Liaison
     @ManyToOne
   private Formation formation;
 

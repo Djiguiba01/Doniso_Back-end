@@ -57,4 +57,7 @@ public class Formation {
     // Liaison
     @OneToMany(mappedBy = "formation")
     List<Commentaire> commentaires = new ArrayList<>();
+
+    @ManyToOne
+    Utilisateurs utilisateurs;
 }
