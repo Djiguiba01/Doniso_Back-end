@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -43,12 +44,12 @@ public class Formation {
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
     @Column(length = 16)
-    private LocalDate datedebut;
+    private Date datedebut;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(length = 16)
-    private LocalDate datefin;
+    private Date datefin;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)

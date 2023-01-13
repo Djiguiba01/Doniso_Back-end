@@ -9,6 +9,7 @@ import com.doniso.Doniso.Repository.NotificationRepo;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import com.doniso.Doniso.Service.FormationService;
 import com.doniso.Doniso.payload.Autres.ConfigImages;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -44,25 +46,10 @@ public class FormationControl {
     @PostMapping("/ajout")
     //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Formation create(
-            @Param ("titre") String titre,
-            @Param ("lieu") String lieu,
-            @Param ("description") String description,
-            @Param ("contact") int contact,
-            @Param ("heure") int heure,
-            @Param ("datedebut") LocalDate datedebut,
-            @Param ("datefin") LocalDate datefin,
-            @Param ("etat") Etat etat,
-            @Param ("idutilisateur") Long idutilisateur,
-            @Param("file")MultipartFile file) throws IOException {
-        Formation formation = new Formation();
-        formation.setLieu(lieu);
-        formation.setDescription(description);
-        formation.setContact(contact);
-        formation.setHeure(heure);
-        formation.setDatedebut(datedebut);
-        formation.setDatefin(datefin);
-        formation.setEtat(etat);
-        formation.setUtilisateurs(new Utilisateurs(idutilisateur));
+            @Param("file")MultipartFile file,
+            @Valid @RequestParam(value = "donneesformation") String donneesformation) throws IOException {
+        Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
+
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
         String uploadDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
         ConfigImages.saveimg(uploadDir, imageName, file);
@@ -71,14 +58,16 @@ public class FormationControl {
 
         Notification notification = new Notification();
 
-        Utilisateurs utilisateurs = utilisateursRepository.findById(idutilisateur).get();
+        LocalDate dt = LocalDate.now();
+        System.out.println(dt);
+        Utilisateurs utilisateurs = utilisateursRepository.findById(formation.getUtilisateurs().getId()).get();
         notification.setTitre(formation.getTitre());
         notification.setDescription(utilisateurs.getUsername() + " a ajouté une nouvelle formation.\n Pour plus d'information, veuillez contacter " + formation.getContact());
         notification.getUtilisateurs().add(utilisateurs);
         notificationRepo.save(notification);
+        formation.setImage(imageName);
 
-           return formationService.creer(formation);
-
+        return formationService.creer(formation);
 
     }
 
