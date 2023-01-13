@@ -18,7 +18,10 @@ public class FormationServiceImpl implements FormationService{
 
     @Override
     public Formation creer(Formation formation) {
-        return formationRepo.save(formation);
+
+
+            return formationRepo.save(formation);
+
     }
 
     @Override
@@ -43,6 +46,7 @@ public class FormationServiceImpl implements FormationService{
                     f.setHeure(formation.getHeure());
                     f.setDatedebut(formation.getDatedebut());
                     f.setDatefin(formation.getDatefin());
+                    f.setEtat(formation.getEtat());
                     return  formationRepo.save(f);
                 }).orElseThrow(() -> new RuntimeException("Formation non trouvée !!"));
     }

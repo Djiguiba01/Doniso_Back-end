@@ -30,7 +30,7 @@ public class CommentaireControl {
 
     @GetMapping("/voir/{idCom}")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public Optional<Commentaire> reada(@PathVariable("idCom") Long idCom){
+    public Optional<Commentaire> read(@PathVariable("idCom") Long idCom){
         return commentaireService.lireParID(idCom);
     }
 

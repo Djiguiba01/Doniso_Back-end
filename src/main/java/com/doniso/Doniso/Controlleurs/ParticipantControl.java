@@ -4,6 +4,7 @@ import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Service.ParticipantService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,26 +18,31 @@ public class ParticipantControl {
     private final ParticipantService participantService;
 
     @PostMapping("/ajout")
+    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Participant create(@RequestBody Participant participant) {
         return  participantService.creer(participant);
     }
 
     @GetMapping("/voir")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public List<Participant> read(){
         return participantService.lire();
     }
 
     @GetMapping("/voir/{idPart}")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Optional<Participant> read(@PathVariable("idPart") Long idPart){
         return participantService.lireParID(idPart);
     }
 
     @PutMapping("/update/{idPart}")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Participant update(@PathVariable Long idPart, @RequestBody Participant participant) {
         return participantService.modifier(idPart, participant);
     }
 
     @DeleteMapping("supprimer/{idpart}")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable Long idpart){
         return participantService.supprimer(idpart);
     }

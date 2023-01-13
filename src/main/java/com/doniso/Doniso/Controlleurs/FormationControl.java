@@ -1,8 +1,11 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
+import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Service.FormationService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +17,20 @@ import java.util.Optional;
 @AllArgsConstructor
 public class FormationControl {
 
+    @Autowired
     private final FormationService formationService;
+    @Autowired
+    private final FormationRepo formationRepo;
+
 
     @PostMapping("/ajout")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Formation create(@RequestBody Formation formation) {
-        return  formationService.creer(formation);
+
+
+           return formationService.creer(formation);
+
+
     }
 
     @GetMapping("/voir")
@@ -30,7 +41,7 @@ public class FormationControl {
 
     @GetMapping("/voir/{idFormat}")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public Optional<Formation> reada(@PathVariable("idFormat") Long idFormat){
+    public Optional<Formation> read(@PathVariable("idFormat") Long idFormat){
         return formationService.lireParID(idFormat);
     }
 

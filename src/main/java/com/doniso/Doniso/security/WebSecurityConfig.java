@@ -150,7 +150,7 @@ public class WebSecurityConfig {
     return http.build();
   }
 
-  //HIERACHIE DES ROLES
+  // HIERACHIE DES ROLES
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();

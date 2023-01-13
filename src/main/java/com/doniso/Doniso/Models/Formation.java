@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -50,6 +49,10 @@ public class Formation {
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(length = 16)
     private LocalDate datefin;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Etat etat;
 
     // Liaison
     @OneToMany(mappedBy = "formation")
