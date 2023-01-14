@@ -38,5 +38,5 @@ public class Participant {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 40)
-    private ValidParticipant validParticipant;
+    private ValidParticipant status;
 }

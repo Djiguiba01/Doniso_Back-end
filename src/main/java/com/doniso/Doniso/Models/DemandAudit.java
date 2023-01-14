@@ -36,7 +36,7 @@ public class DemandAudit {
     // Les liaisons
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private AuditDemand auditDemand;
+    private AuditDemand auditstatus;
 
 
 }

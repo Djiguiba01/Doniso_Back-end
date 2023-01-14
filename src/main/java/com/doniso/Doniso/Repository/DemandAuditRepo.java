@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DemandAuditRepo extends JpaRepository<DemandAudit, Long> {
+    DemandAudit findDemandAuditByIdDemand(Long idDemand); // Methode validation demande formation
 }

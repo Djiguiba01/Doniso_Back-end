@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Email;
 
+import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -22,17 +23,56 @@ public class EmailConstructor {
     @Autowired
     private TemplateEngine templateEngine;
 
+    // Permet de Communiquer avec nos différent Service controller
     public MimeMessagePreparator constructNewUserEmail(Utilisateurs user) {
         Context context = new Context();
         context.setVariable("user", user);
-        String text = templateEngine.process("newUserEmailTemplate", context);
+        String text = templateEngine.process("newUserEmailTemplate", context); // Nom fichier html
         MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
                 email.setPriority(1);
                 email.setTo(user.getEmail());
-                email.setSubject("Bienvenue dans DocOnline");
+                email.setSubject("Bienvenue sur Doniso");
+                email.setText(text, true);
+                email.setFrom(new InternetAddress(env.getProperty("support.email")));
+            }
+        };
+        return messagePreparator;
+    }
+
+    // Template Acceptation demande formation :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public MimeMessagePreparator constructDemandAuditEmail(DemandAudit demandAudit) {
+        Context context = new Context();
+        context.setVariable("audit", demandAudit);
+        String text = templateEngine.process("AccepterAuditEmailTemplate", context);
+        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+                email.setPriority(1);
+                email.setTo(demandAudit.getEmail());
+                email.setSubject("Bienvenue dans Doniso");
+                email.setText(text, true);
+                email.setFrom(new InternetAddress(env.getProperty("support.email")));
+            }
+        };
+        return messagePreparator;
+    }
+
+    // Template Refus demande formation :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public MimeMessagePreparator constructRefusAuditEmail(DemandAudit demandAudit) {
+        Context context = new Context();
+        context.setVariable("audit", demandAudit);
+        String text = templateEngine.process("RefuserAuditEmailTemplate", context);
+        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+                email.setPriority(1);
+                email.setTo(demandAudit.getEmail());
+                email.setSubject("Bienvenue dans Doniso");
                 email.setText(text, true);
                 email.setFrom(new InternetAddress(env.getProperty("support.email")));
             }

@@ -1,7 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
 import com.doniso.Doniso.Models.DemandAudit;
-import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Service.DemandAuditService;
 import com.doniso.Doniso.payload.Autres.ConfigImages;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -22,7 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DemandAuditControl {
 
-    private final DemandAuditService demandAuditService;
+    private final DemandAuditService demandAuditService; // Injection demande service
 
    /* @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
@@ -37,18 +36,33 @@ public class DemandAuditControl {
 
     */
 
+   // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+   @PostMapping("/accepter/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+   @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
+       return  demandAuditService.valideAudit(idDemande);
+   }
+    @PostMapping("/refus/{idDemande}") // Refus Control::::::::::::::::::::::::::::::::
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public DemandAudit refusDemande(@PathVariable long idDemande) throws IOException {
+        return  demandAuditService.refugeAudit(idDemande);
+    }
+
+
+    // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit, @Param("file") MultipartFile file) throws IOException {
         String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
-
-          DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
+        DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
         demandAudit1.setPhoto(nomfile);
-         String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
-          ConfigImages.saveimg(uploaDir, nomfile, file);
+        String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
+        ConfigImages.saveimg(uploaDir, nomfile, file);
 
         return  demandAuditService.creer(demandAudit1);
     }
+
 
     @GetMapping("/voir")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")

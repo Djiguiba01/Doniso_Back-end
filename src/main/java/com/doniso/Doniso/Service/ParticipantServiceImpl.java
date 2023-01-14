@@ -2,7 +2,9 @@ package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
+import com.doniso.Doniso.Models.ValidParticipant;
 import com.doniso.Doniso.Repository.ParticipantRepo;
+import com.doniso.Doniso.Repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class ParticipantServiceImpl implements ParticipantService{
 
     @Autowired
     private final ParticipantRepo participantRepo;
+    private final RoleRepository roleRepository;
 
     @Override
     public Participant creer(Participant participant) {
@@ -31,6 +34,13 @@ public class ParticipantServiceImpl implements ParticipantService{
     @Override
     public Optional<Participant> lireParID(Long idPart) {
         return participantRepo.findById(idPart);
+    }
+
+    @Override
+    public Participant valideParticipant(Long idPart) {
+        Participant participant = participantRepo.findParticipantByIdPart(idPart);
+        participant.setStatus(ValidParticipant.VALIDER);
+        return participantRepo.save(participant);
     }
 
 

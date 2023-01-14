@@ -9,11 +9,20 @@ import java.util.Optional;
 @Service
 public interface DemandAuditService {
 
+    // Methode validation service :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    DemandAudit valideAudit(Long idDemand);
+
+    DemandAudit refugeAudit(Long idDemand);
+
+
+    // CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
     DemandAudit creer(DemandAudit demandAudit);
 
     List<DemandAudit> lire();
 
     Optional<DemandAudit> lireParID(Long idDemand);
+
 
     DemandAudit modifier(Long idDemand, DemandAudit demandAudit);
 
