@@ -1,11 +1,19 @@
 package com.doniso.Doniso.Controlleurs;
 
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Service.DemandAuditService;
+import com.doniso.Doniso.payload.Autres.ConfigImages;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +24,30 @@ public class DemandAuditControl {
 
     private final DemandAuditService demandAuditService;
 
-    @PostMapping("/ajout")
+   /* @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public DemandAudit create(@RequestBody DemandAudit demandAudit) {
+    public DemandAudit create(@RequestBody DemandAudit demandAudit, @Param("file") MultipartFile file) throws IOException {
+        String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
+        demandAudit.setPhoto(nomfile);
+         String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
+          ConfigImages.saveimg(uploaDir, nomfile, file);
+
         return  demandAuditService.creer(demandAudit);
+    }
+
+    */
+
+      @PostMapping("/ajout")
+    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit, @Param("file") MultipartFile file) throws IOException {
+        String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
+
+          DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
+        demandAudit1.setPhoto(nomfile);
+         String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
+          ConfigImages.saveimg(uploaDir, nomfile, file);
+
+        return  demandAuditService.creer(demandAudit1);
     }
 
     @GetMapping("/voir")

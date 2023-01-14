@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.AuditDemand;
 import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Repository.DemandAuditRepo;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class DemandAuditServiceImpl implements DemandAuditService{
 
     @Override
     public DemandAudit creer(DemandAudit demandAudit) {
+        demandAudit.setAuditDemand(AuditDemand.ENCOURS_TRAITEMENT);
         return demandAuditRepo.save(demandAudit);
     }
 

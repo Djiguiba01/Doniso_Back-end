@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface FormationService {
 
 
-    Formation creer(Formation formation);
+    String creer(Formation formation);
 
     List<Formation> lire();
 

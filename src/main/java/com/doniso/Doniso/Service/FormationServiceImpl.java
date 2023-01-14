@@ -17,10 +17,18 @@ public class FormationServiceImpl implements FormationService{
     private  final FormationRepo formationRepo;
 
     @Override
-    public Formation creer(Formation formation) {
+    public String creer(Formation formation) {
+
+        if(formation.getDatedebut().after(formation.getDatefin())){
+            return "Veuillez donner une date corecte !";
+        }
+        else{
+             formationRepo.save(formation);
+            return "Formation ajoutée avec succès";
+        }
 
 
-            return formationRepo.save(formation);
+
 
     }
 

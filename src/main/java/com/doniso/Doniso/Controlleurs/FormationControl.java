@@ -45,7 +45,7 @@ public class FormationControl {
 
     @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public Formation create(
+    public String create(
             @Param("file")MultipartFile file,
             @Valid @RequestParam(value = "donneesformation") String donneesformation) throws IOException {
 
@@ -61,6 +61,7 @@ public class FormationControl {
         System.out.println(dt);
         Utilisateurs utilisateurs = utilisateursRepository.findById(formation.getUtilisateurs().getId()).get();
         notification.setTitre(formation.getTitre());
+        formation.setEtat(Etat.INITIE);
         notification.setDescription(utilisateurs.getUsername() + " a ajouté une nouvelle formation.\n Pour plus d'information, veuillez contacter " + formation.getContact());
         notification.getUtilisateurs().add(utilisateurs);
         notificationRepo.save(notification);
