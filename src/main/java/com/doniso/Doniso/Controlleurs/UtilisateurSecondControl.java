@@ -18,6 +18,7 @@ public class UtilisateurSecondControl {
     private final UtilisateurSecondService utilisateurSecondService;
 //    private final UtilisateurSecondRepo utilisateurSecondRepo;
 
+
     @PostMapping("/ajout")
     public Utilisateurs create(@RequestBody Utilisateurs utilisateurs) {
         return  utilisateurSecondService.creer(utilisateurs);
@@ -32,6 +33,7 @@ public class UtilisateurSecondControl {
     public Optional<Utilisateurs> read(@PathVariable("id") Long id){
         return utilisateurSecondService.lireParID(id);
     }
+
 
     @PutMapping("/update/{id}")
     public Utilisateurs modifier(@PathVariable Long id, @RequestBody Utilisateurs utilisateurs) {

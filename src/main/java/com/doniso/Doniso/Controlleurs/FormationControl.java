@@ -44,20 +44,19 @@ public class FormationControl {
 
 
     @PostMapping("/ajout")
-    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Formation create(
             @Param("file")MultipartFile file,
             @Valid @RequestParam(value = "donneesformation") String donneesformation) throws IOException {
-        Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
 
+        //  Partie Insertion Image
+        Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
         String uploadDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
         ConfigImages.saveimg(uploadDir, imageName, file);
 
-
-
+        // Envoie Notification automatiquement lors ajout formation
         Notification notification = new Notification();
-
         LocalDate dt = LocalDate.now();
         System.out.println(dt);
         Utilisateurs utilisateurs = utilisateursRepository.findById(formation.getUtilisateurs().getId()).get();
@@ -71,24 +70,28 @@ public class FormationControl {
 
     }
 
+    // Voir formation
     @GetMapping("/voir")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public List<Formation> read(){
         return formationService.lire();
     }
 
+    // Voir formation par id
     @GetMapping("/voir/{idFormat}")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Optional<Formation> read(@PathVariable("idFormat") Long idFormat){
         return formationService.lireParID(idFormat);
     }
 
+    // Faire mise à jour formation
     @PutMapping("/update/{idFormat}")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Formation update(@PathVariable Long idFormat, @RequestBody Formation formation) {
         return formationService.modifier(idFormat, formation);
     }
 
+    // Supprimer formation formation
     @DeleteMapping("/supprimer/{idFormat}")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable Long idFormat){

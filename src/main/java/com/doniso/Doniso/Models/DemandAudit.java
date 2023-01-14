@@ -33,5 +33,10 @@ public class DemandAudit {
 
     private String photo;
 
+    // Les liaisons
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private AuditDemand auditDemand;
+
 
 }

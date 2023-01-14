@@ -39,11 +39,11 @@ public class ParticipantServiceImpl implements ParticipantService{
         return participantRepo.findById(idPart)
                 .map(p-> {
                     p.setNom(participant.getNom());
-                    p.setPrenom(participant.getPrenom());
                     p.setGenre(participant.getGenre());
-                    p.setContact(participant.getContact());
+                    p.setEmail(participant.getEmail());
+                    p.setDeuxNom(participant.getDeuxNom());
                     p.setProfession(participant.getProfession());
-                    return  participantRepo.save(p);
+                    return participantRepo.save(p);
                 }).orElseThrow(() -> new RuntimeException("Participant non trouvé !!"));
     }
 

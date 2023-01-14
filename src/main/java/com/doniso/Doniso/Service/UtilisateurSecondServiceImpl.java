@@ -1,5 +1,7 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.Notification;
+import com.doniso.Doniso.Models.NotificationRepository;
 import com.doniso.Doniso.Models.Utilisateurs;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,8 @@ public class UtilisateurSecondServiceImpl implements UtilisateurSecondService{
     @Autowired
     private final UtilisateursRepository utilisateursRepository;
 
+    private final NotificationRepository notificationRepository;
+
     @Override
     public Utilisateurs creer(Utilisateurs utilisateurs) {
         return utilisateursRepository.save(utilisateurs);
@@ -30,6 +34,7 @@ public class UtilisateurSecondServiceImpl implements UtilisateurSecondService{
     public Optional<Utilisateurs> lireParID(Long id) {
         return utilisateursRepository.findById(id);
     }
+
 
     @Override
     public Utilisateurs modifier(Long id, Utilisateurs utilisateurs) {

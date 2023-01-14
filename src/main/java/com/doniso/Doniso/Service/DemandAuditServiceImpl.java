@@ -41,6 +41,7 @@ public class DemandAuditServiceImpl implements DemandAuditService{
                     d.setEmail(demandAudit.getEmail());
                     d.setType(demandAudit.getType());
                     d.setPersonnes(demandAudit.getPersonnes());
+                    d.setAuditDemand(demandAudit.getAuditDemand());
                     return  demandAuditRepo.save(d);
                 }).orElseThrow(() -> new RuntimeException("Formation non trouvée !!"));
     }

@@ -1,5 +1,7 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.Notification;
+import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.stereotype.Service;
 

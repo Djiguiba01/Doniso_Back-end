@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name="participant")
@@ -22,14 +23,20 @@ public class Participant {
     @Column(length = 20)
     private  String nom;
 
-    @Column(length = 15)
-    private String Prenom;
+    private String deuxNom;
 
     @Column(length = 12)
     private  String genre;
-    @Column(length = 12)
-    private  String contact;
+    @Column(length = 50)
+    @Email
+    private  String email;
 
-    @Column(length = 12)
-    private  String Profession;
+    @Column(length = 60)
+    private String profession;
+
+    // Les liaisons
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 40)
+    private ValidParticipant validParticipant;
 }

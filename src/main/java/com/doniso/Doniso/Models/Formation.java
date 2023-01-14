@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,11 +50,11 @@ public class Formation {
     @Column(length = 16)
     private Date datefin;
 
+    // Les liaisons
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Etat etat;
 
-    // Liaison
     @OneToMany(mappedBy = "formation")
     List<Commentaire> commentaires = new ArrayList<>();
 
