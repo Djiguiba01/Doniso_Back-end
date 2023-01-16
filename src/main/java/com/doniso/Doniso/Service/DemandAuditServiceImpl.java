@@ -18,15 +18,14 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     @Autowired
     private  final DemandAuditRepo demandAuditRepo;
 
-    @Autowired
-    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
-
-    @Autowired
-    private final JavaMailSender mailSender; // Envoie gmail
-
 
 
     // Acceptation demande formation ::::::::::::::::::::::::::::::::
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+    @Autowired
+    private final JavaMailSender mailSender; // Envoie gmail
+
     @Override
     public DemandAudit valideAudit(Long idDemand)  {
         DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);

@@ -1,9 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
-import com.doniso.Doniso.Models.Etat;
-import com.doniso.Doniso.Models.Formation;
-import com.doniso.Doniso.Models.Notification;
-import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Repository.NotificationRepo;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
@@ -11,7 +8,6 @@ import com.doniso.Doniso.Service.FormationService;
 import com.doniso.Doniso.payload.Autres.ConfigImages;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -22,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +37,24 @@ public class FormationControl {
     @Autowired
     UtilisateursRepository utilisateursRepository;
 
+    // Etat Formation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // Encours::::::::::::::
+    @PostMapping("/encours/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation encoursFormation(@PathVariable long idFormat) throws IOException {
+        return  formationService.encours(idFormat);
+    }
 
+    // Encours::::::::::::::
+    @PostMapping("/terminer/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation terminerFormation(@PathVariable long idFormat) throws IOException {
+        return  formationService.terminer(idFormat);
+    }
+
+
+
+    // CRUD REQUETTE:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String create(
@@ -70,6 +82,7 @@ public class FormationControl {
         return formationService.creer(formation);
 
     }
+
 
     // Voir formation
     @GetMapping("/voir")

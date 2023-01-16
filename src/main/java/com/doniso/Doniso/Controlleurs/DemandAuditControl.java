@@ -37,7 +37,6 @@ public class DemandAuditControl {
     */
 
    // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
    @PostMapping("/accepter/{idDemande}") // Acception Control:::::::::::::::::::::::::::
    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
    public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {

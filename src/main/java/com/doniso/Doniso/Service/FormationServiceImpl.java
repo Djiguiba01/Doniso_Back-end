@@ -1,9 +1,12 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Email.EmailConstructor;
+import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Repository.FormationRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,33 @@ public class FormationServiceImpl implements FormationService{
     @Autowired
     private  final FormationRepo formationRepo;
 
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+
+    @Autowired
+    private final JavaMailSender mailSender; // Envoie gmail
+
+    // Etat feormation:::::::::::::::::::::::::::::::::::::::::::::::
+    // Encours::::::::::
+    @Override
+    public Formation encours(Long idFormat) {
+        Formation formation = formationRepo.findFormationByIdFormat(idFormat);
+        formation.setEtat(Formation.ENCOURS);
+        //mailSender.send(emailConstructor.constructFormationEtat(formation));// Permet d'envoyer gmail
+        return formationRepo.save(formation);
+    }
+    // Terminer:::::::::::
+    @Override
+    public Formation terminer(Long idFormat) {
+        Formation formation = formationRepo.findFormationByIdFormat(idFormat);
+        formation.setEtat(Formation.TERMINER);
+        //mailSender.send(emailConstructor.constructFormationEtat(formation));// Permet d'envoyer gmail
+        return formationRepo.save(formation);
+    }
+
+
+    // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // Condition date::::::::::::::
     @Override
     public String creer(Formation formation) {
 
@@ -26,7 +56,6 @@ public class FormationServiceImpl implements FormationService{
              formationRepo.save(formation);
             return "Formation ajoutée avec succès";
         }
-
 
     }
 

@@ -1,6 +1,7 @@
 package com.doniso.Doniso.Email;
 
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -41,6 +42,48 @@ public class EmailConstructor {
         };
         return messagePreparator;
     }
+
+
+    // Template Non Valide demande Participant :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public MimeMessagePreparator constructNonValideParticEmail(Participant participant) {
+        Context context = new Context();
+        context.setVariable("part", participant);
+        String text = templateEngine.process("NonValidParticipant", context);
+        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+                email.setPriority(1);
+                email.setTo(participant.getEmail());
+                email.setSubject("Bienvenue dans Doniso");
+                email.setText(text, true);
+                email.setFrom(new InternetAddress(env.getProperty("support.email")));
+            }
+        };
+        return messagePreparator;
+    }
+
+
+    // Template Valide demande Participant :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public MimeMessagePreparator constructValideParticipantEmail(Participant participant) {
+        Context context = new Context();
+        context.setVariable("validepart", participant);
+        String text = templateEngine.process("ValidationParticipant", context);
+        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+                email.setPriority(1);
+                email.setTo(participant.getEmail());
+                email.setSubject("Bienvenue dans Doniso");
+                email.setText(text, true);
+                email.setFrom(new InternetAddress(env.getProperty("support.email")));
+            }
+        };
+        return messagePreparator;
+    }
+
+
 
     // Template Acceptation demande formation :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public MimeMessagePreparator constructDemandAuditEmail(DemandAudit demandAudit) {

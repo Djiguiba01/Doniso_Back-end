@@ -20,6 +20,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Formation {
 
+    // A voir après
+    public static final Etat ENCOURS = Etat.ENCOURS ;
+    public static final Etat TERMINER = Etat.TERMINER;
+    //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFormat;
@@ -53,7 +57,7 @@ public class Formation {
 
     // Les liaisons
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 60)
     private Etat etat;
 
     @OneToMany(mappedBy = "formation")

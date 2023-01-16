@@ -7,13 +7,18 @@ import java.util.Optional;
 
 public interface ParticipantService {
 
+    // Validation Participant::::::::::::::::::::::::::::::::::::::::::::
+    Participant valideParticipant(Long idPart);
+    Participant nonvalideParticipant(Long idPart);
+
+
+    // CRUD:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     Participant creer(Participant participant);
 
     List<Participant> lire();
 
     Optional<Participant> lireParID(Long idPart);
 
-    Participant valideParticipant(Long idPart);
 
     Participant modifier(Long idPart, Participant participant);
 

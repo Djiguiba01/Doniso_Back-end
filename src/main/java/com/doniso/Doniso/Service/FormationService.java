@@ -10,6 +10,13 @@ import java.util.Optional;
 public interface FormationService {
 
 
+    // Etat formation
+    // Methode validation service :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    Formation encours(Long idFormat);
+
+    Formation terminer(Long idFormat);
+
+    // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::
     String creer(Formation formation);
 
     List<Formation> lire();

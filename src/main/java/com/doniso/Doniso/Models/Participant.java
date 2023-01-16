@@ -16,6 +16,7 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 public class Participant {
 
+    public static final ValidParticipant ENCOURS_TRAITEMENT = ValidParticipant.ENCOURS_TRAITEMENT;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPart;

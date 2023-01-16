@@ -1,5 +1,7 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Email.EmailConstructor;
+import com.doniso.Doniso.Models.AuditDemand;
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
@@ -7,6 +9,7 @@ import com.doniso.Doniso.Repository.ParticipantRepo;
 import com.doniso.Doniso.Repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +24,33 @@ public class ParticipantServiceImpl implements ParticipantService{
     private final ParticipantRepo participantRepo;
     private final RoleRepository roleRepository;
 
+    // Etat Participant::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+    @Autowired
+    private final JavaMailSender mailSender; // Envoie gmail
+    // Non_Participant
+    @Override
+    public Participant nonvalideParticipant(Long idPart) {
+        Participant participant = participantRepo.findParticipantByIdPart(idPart);
+        participant.setStatus(ValidParticipant.NON_VALIDER);
+       mailSender.send(emailConstructor.constructNonValideParticEmail(participant));// Permet d'envoyer gmail
+        return participantRepo.save(participant);
+    }
+    // Validation Participant
+    @Override
+    public Participant valideParticipant(Long idPart) {
+        Participant participant = participantRepo.findParticipantByIdPart(idPart);
+        participant.setStatus(ValidParticipant.VALIDER);
+        mailSender.send(emailConstructor.constructValideParticipantEmail(participant));// Permet d'envoyer gmail
+        return participantRepo.save(participant);
+    }
+
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @Override
     public Participant creer(Participant participant) {
+        participant.setStatus(Participant.ENCOURS_TRAITEMENT); // Enrégistrement Par defaux etat encours_traitement
         return participantRepo.save(participant);
     }
 
@@ -34,13 +62,6 @@ public class ParticipantServiceImpl implements ParticipantService{
     @Override
     public Optional<Participant> lireParID(Long idPart) {
         return participantRepo.findById(idPart);
-    }
-
-    @Override
-    public Participant valideParticipant(Long idPart) {
-        Participant participant = participantRepo.findParticipantByIdPart(idPart);
-        participant.setStatus(ValidParticipant.VALIDER);
-        return participantRepo.save(participant);
     }
 
 
