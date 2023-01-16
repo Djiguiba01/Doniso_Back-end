@@ -1,7 +1,7 @@
 package com.doniso.Doniso.Controlleurs;
 
-import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Models.Participant;
+import com.doniso.Doniso.Models.ValidParticipant;
 import com.doniso.Doniso.Service.ParticipantService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,24 @@ public class ParticipantControl {
     public Participant nonvalideParticipant(@PathVariable long idParticipant) throws IOException {
         return  participantService.nonvalideParticipant(idParticipant);
     }
+
+    // Voir Etat formation
+    @GetMapping("/status/{statuspart}")
+    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    public Object reaObject(@PathVariable String statuspart){
+        if (statuspart.equals("desoler")){
+            return participantService.voirParticipantstatus(ValidParticipant.NON_VALIDER);
+        }
+        else if (statuspart.equals("valider")) {
+            return participantService.voirParticipantstatus(ValidParticipant.VALIDER);
+        }else if (statuspart.equals("encours")){
+            return participantService.voirParticipantstatus(ValidParticipant.ENCOURS_TRAITEMENT);
+        } else {
+            return "Veuilez réesayer";
+        }
+    }
+
+
 
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

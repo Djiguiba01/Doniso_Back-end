@@ -1,8 +1,6 @@
 package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Email.EmailConstructor;
-import com.doniso.Doniso.Models.AuditDemand;
-import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
 import com.doniso.Doniso.Repository.ParticipantRepo;
@@ -37,6 +35,13 @@ public class ParticipantServiceImpl implements ParticipantService{
        mailSender.send(emailConstructor.constructNonValideParticEmail(participant));// Permet d'envoyer gmail
         return participantRepo.save(participant);
     }
+
+    // Service implement status Participant
+    @Override
+    public List<Object> voirParticipantstatus(ValidParticipant validParticipant) {
+        return participantRepo.findByStatus(validParticipant);
+    }
+
     // Validation Participant
     @Override
     public Participant valideParticipant(Long idPart) {

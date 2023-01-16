@@ -83,6 +83,22 @@ public class FormationControl {
 
     }
 
+    // Voir Etat formation
+    @GetMapping("/regarder/{etat}")
+    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Object rea(@PathVariable String etat){
+        if (etat.equals("encours")){
+            return formationService.voiretat(Etat.ENCOURS);
+        }
+        else if (etat.equals("termine")) {
+            return formationService.voiretat(Etat.TERMINER);
+        }else if (etat.equals("initier")){
+            return formationService.voiretat(Etat.INITIE);
+        } else {
+            return "ssss dddd";
+        }
+    }
+
 
     // Voir formation
     @GetMapping("/voir")
@@ -90,6 +106,8 @@ public class FormationControl {
     public List<Formation> read(){
         return formationService.lire();
     }
+
+
 
     // Voir formation par id
     @GetMapping("/voir/{idFormat}")
