@@ -29,6 +29,11 @@ public class UtilisateurSecondServiceImpl implements UtilisateurSecondService{
 
     private final JavaMailSender mailSender; // Envoie gmail
 
+    @Override // Voir par role utilisateur:::::::::::::::::::::::::::::
+    public List<Utilisateurs> voirParrole(Role role) {
+        return utilisateursRepository.findByRoles(role);
+    }
+
     @Override
     public Utilisateurs creer(Utilisateurs utilisateurs) {
         return utilisateursRepository.save(utilisateurs);

@@ -12,7 +12,10 @@ import java.util.Optional;
 @Repository
 public interface UtilisateursRepository extends JpaRepository<Utilisateurs, Long> {
 
+  List<Utilisateurs> findByRoles (Role role); // Voir par role utilisateur::::::::::::::::
+
   Optional<Utilisateurs> findByUsername(String username);
+
 
   Boolean existsByUsername(String username);  //
 

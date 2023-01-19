@@ -2,6 +2,7 @@ package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Models.Notification;
 import com.doniso.Doniso.Models.Participant;
+import com.doniso.Doniso.Models.Role;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import java.util.Optional;
 
 @Service
 public interface UtilisateurSecondService {
+
+    List<Utilisateurs> voirParrole(Role role); // Voir par role utilisateur::::::::::::::::
 
     Utilisateurs creer(Utilisateurs utilisateurs);
 

@@ -1,10 +1,13 @@
 package com.doniso.Doniso.Controlleurs;
 
 import com.doniso.Doniso.Email.EmailConstructor;
+import com.doniso.Doniso.Models.ERole;
 import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Repository.RoleRepository;
 import com.doniso.Doniso.Service.UtilisateurSecondService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,16 @@ public class UtilisateurSecondControl {
 
     @Autowired
     private final JavaMailSender mailSender; // Envoie gmail
+
+    @Autowired // Voir par role utilisateur::::::::::::::::::::::::::::
+    RoleRepository roleRepository;
+    @GetMapping("/roles")
+    List<Utilisateurs> voirParRole(@Param("role") String role){
+        ERole roleachercher = ERole.ROLE_USER;
+        if (role.contains("form")) roleachercher = ERole.ROLE_FORMATEUR;
+        if (role.contains("adm")) roleachercher = ERole.ROLE_ADMIN;
+        return utilisateurSecondService.voirParrole(roleRepository.findByName(roleachercher));
+    }
 
 
     @PostMapping("/ajout")
