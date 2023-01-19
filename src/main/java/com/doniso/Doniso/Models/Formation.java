@@ -64,5 +64,8 @@ public class Formation {
     List<Commentaire> commentaires = new ArrayList<>();
 
     @ManyToOne
-    Utilisateurs utilisateurs;
+    Utilisateurs createur;
+
+    @ManyToOne
+    Utilisateurs formateur;
 }

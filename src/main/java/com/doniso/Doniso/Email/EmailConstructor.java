@@ -43,6 +43,25 @@ public class EmailConstructor {
         return messagePreparator;
     }
 
+    // Template Envoye formateur :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public MimeMessagePreparator constructFormateurEmail(Utilisateurs formateur) {
+        Context context = new Context();
+        context.setVariable("format", formateur);
+        String text = templateEngine.process("Formateur", context);
+        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+                email.setPriority(1);
+                email.setTo(formateur.getEmail());
+                email.setSubject("Bienvenue dans Doniso");
+                email.setText(text, true);
+                email.setFrom(new InternetAddress(env.getProperty("support.email")));
+            }
+        };
+        return messagePreparator;
+    }
+
 
     // Template Non Valide demande Participant :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public MimeMessagePreparator constructNonValideParticEmail(Participant participant) {

@@ -1,9 +1,11 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.Utilisateurs;
 import com.doniso.Doniso.Service.UtilisateurSecondService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +19,12 @@ public class UtilisateurSecondControl {
     @Autowired
     private final UtilisateurSecondService utilisateurSecondService;
 //    private final UtilisateurSecondRepo utilisateurSecondRepo;
+
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+
+    @Autowired
+    private final JavaMailSender mailSender; // Envoie gmail
 
 
     @PostMapping("/ajout")

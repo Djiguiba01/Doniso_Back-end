@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Repository;
 
+import com.doniso.Doniso.Models.ERole;
 import com.doniso.Doniso.Models.Role;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,6 @@ public interface UtilisateursRepository extends JpaRepository<Utilisateurs, Long
 
   Boolean existsByUsername(String username);  //
 
-  //List<Object> findByRole (Role role); // Voir Utilisateurs part rôle::::::::::::
 
   Boolean existsByEmail(String email); // Envoie notification aux utilisateurs::::::::::::
 

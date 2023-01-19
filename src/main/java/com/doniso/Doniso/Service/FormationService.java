@@ -19,6 +19,7 @@ public interface FormationService {
 
     List<Object> voiretat(Etat etat); // Voir Etat formation
 
+
     // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::
     String creer(Formation formation);
 

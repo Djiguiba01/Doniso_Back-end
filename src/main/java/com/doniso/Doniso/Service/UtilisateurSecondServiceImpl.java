@@ -1,11 +1,14 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.Notification;
 import com.doniso.Doniso.Models.NotificationRepository;
+import com.doniso.Doniso.Models.Role;
 import com.doniso.Doniso.Models.Utilisateurs;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,12 @@ public class UtilisateurSecondServiceImpl implements UtilisateurSecondService{
 
     private final NotificationRepository notificationRepository;
 
+    // :::::::::::::::::::::::::::::::::::::
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+
+    private final JavaMailSender mailSender; // Envoie gmail
+
     @Override
     public Utilisateurs creer(Utilisateurs utilisateurs) {
         return utilisateursRepository.save(utilisateurs);
@@ -27,6 +36,7 @@ public class UtilisateurSecondServiceImpl implements UtilisateurSecondService{
 
     @Override
     public List<Utilisateurs> lire() {
+
         return utilisateursRepository.findAll();
     }
 

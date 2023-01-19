@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Repository.NotificationRepo;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,13 @@ public class FormationControl {
     @Autowired
     UtilisateursRepository utilisateursRepository;
 
+
+    @Autowired
+    private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
+
+    @Autowired
+    private final JavaMailSender mailSender; // Envoie gmail
+
     // Etat Formation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::::::
     @PostMapping("/encours/{idFormat}") // Acception Control:::::::::::::::::::::::::::
@@ -55,10 +64,11 @@ public class FormationControl {
 
 
     // CRUD REQUETTE:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    @PostMapping("/ajout")
+    @PostMapping("/ajout/{id}")
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String create(
             @Param("file")MultipartFile file,
+            @PathVariable long id,
             @Valid @RequestParam(value = "donneesformation") String donneesformation) throws IOException {
 
         //  Partie Insertion Image
@@ -71,14 +81,17 @@ public class FormationControl {
         Notification notification = new Notification();
         LocalDate dt = LocalDate.now();
         System.out.println(dt);
-        Utilisateurs utilisateurs = utilisateursRepository.findById(formation.getUtilisateurs().getId()).get();
+        Utilisateurs formateur = utilisateursRepository.findById(formation.getFormateur().getId()).get();
         notification.setTitre(formation.getTitre());
         formation.setEtat(Etat.INITIE);
-        notification.setDescription(utilisateurs.getUsername() + " a ajouté une nouvelle formation.\n Pour plus d'information, veuillez contacter " + formation.getContact());
-        notification.getUtilisateurs().add(utilisateurs);
+        Utilisateurs createur = utilisateursRepository.findById(id).get();
+        formation.setCreateur(createur);
+        formation.setFormateur(formateur);
+        notification.setDescription(createur.getUsername() + " a ajouté une nouvelle formation.\n Pour plus d'information, veuillez contacter " + formation.getContact());
+        notification.getUtilisateurs().add(createur);
         notificationRepo.save(notification);
         formation.setImage(imageName);
-
+       // mailSender.send(emailConstructor.constructFormateurEmail(formateur)); // Permet d'envoyer gmail
         return formationService.creer(formation);
 
     }
