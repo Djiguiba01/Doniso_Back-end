@@ -84,6 +84,7 @@ public class FormationServiceImpl implements FormationService{
                     f.setDescription(formation.getDescription());
                     f.setContact(formation.getContact());
                     f.setHeure(formation.getHeure());
+                    f.setEmailformateur(formation.getEmailformateur());
                     f.setDatedebut(formation.getDatedebut());
                     f.setDatefin(formation.getDatefin());
                     f.setImage(formation.getImage());

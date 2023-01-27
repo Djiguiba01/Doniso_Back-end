@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/utlisateursecond")
 @AllArgsConstructor
@@ -31,8 +32,8 @@ public class UtilisateurSecondControl {
 
     @Autowired // Voir par role utilisateur::::::::::::::::::::::::::::
     RoleRepository roleRepository;
-    @GetMapping("/roles")
-    List<Utilisateurs> voirParRole(@Param("role") String role){
+    @GetMapping("/roles/{role}")
+    List<Utilisateurs> voirParRole(@PathVariable String role){
         ERole roleachercher = ERole.ROLE_USER;
         if (role.contains("form")) roleachercher = ERole.ROLE_FORMATEUR;
         if (role.contains("adm")) roleachercher = ERole.ROLE_ADMIN;

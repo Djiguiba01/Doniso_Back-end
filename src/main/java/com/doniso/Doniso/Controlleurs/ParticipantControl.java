@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/participant")
 @AllArgsConstructor
@@ -55,13 +56,13 @@ public class ParticipantControl {
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping("/ajout")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Participant create(@RequestBody Participant participant) {
         return  participantService.creer(participant);
     }
 
     @GetMapping("/voir")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+ //   @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public List<Participant> read(){
         return participantService.lire();
     }

@@ -1,9 +1,6 @@
 package com.doniso.Doniso.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -26,8 +23,9 @@ public class Participant {
 
     private String deuxNom;
 
-    @Column(length = 12)
+  /*  @Column(length = 12)
     private  String genre;
+   */
     @Column(length = 50)
     @Email
     private  String email;
@@ -35,8 +33,11 @@ public class Participant {
     @Column(length = 60)
     private String profession;
 
-    // Les liaisons
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Sexe sexe;
 
+    // Les liaisons
     @Enumerated(EnumType.STRING)
     @Column(length = 40)
     private ValidParticipant status;

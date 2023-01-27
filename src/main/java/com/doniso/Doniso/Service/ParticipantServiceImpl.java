@@ -75,7 +75,7 @@ public class ParticipantServiceImpl implements ParticipantService{
         return participantRepo.findById(idPart)
                 .map(p-> {
                     p.setNom(participant.getNom());
-                    p.setGenre(participant.getGenre());
+                    p.setSexe(participant.getSexe());
                     p.setEmail(participant.getEmail());
                     p.setDeuxNom(participant.getDeuxNom());
                     p.setProfession(participant.getProfession());

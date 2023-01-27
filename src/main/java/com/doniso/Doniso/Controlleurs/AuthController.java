@@ -36,7 +36,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/* In AuthController.java */
+// @CrossOrigin(origins = "*", maxAge = 3600)
 //@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -135,18 +139,20 @@ public class AuthController {
 
   //@PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/inscription")//@valid s'assure que les données soit validées
-  public ResponseEntity<?> registerUser(@Valid @RequestParam(value = "file", required = true) MultipartFile file,
-                                        @Valid  @RequestParam(value = "donneesuser") String donneesuser) throws IOException {
+  public ResponseEntity<?> registerUser(
+
+          //@Valid @RequestParam(value = "file", required = true) MultipartFile file,
+                                        @Valid  @RequestParam(value = "data") String donneesuser) throws IOException {
 
     //chemin de stockage des images
-    String url = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
+   // String url = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
 
     //recupere le nom de l'image
-    String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
-    System.out.println(nomfile);
+    //String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
+   // System.out.println(nomfile);
 
     //envoie le nom, url et le fichier à la classe ConfigImages qui se chargera de sauvegarder l'image
-    ConfigImages.saveimg(url, nomfile, file);
+   // ConfigImages.saveimg(url, nomfile, file);
 
 
 
@@ -155,7 +161,7 @@ public class AuthController {
 
 
 
-    signUpRequest.setPhoto(nomfile);
+    //signUpRequest.setPhoto(nomfile);
 
 
     if (utilisateursRepository.existsByUsername(signUpRequest.getUsername())) {

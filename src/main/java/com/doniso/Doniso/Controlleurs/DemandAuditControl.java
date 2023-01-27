@@ -42,7 +42,7 @@ public class DemandAuditControl {
    public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
        return  demandAuditService.valideAudit(idDemande);
    }
-    @PostMapping("/refus/{idDemande}") // Refus Control::::::::::::::::::::::::::::::::
+    @PostMapping("/refus/{idDemande}") // Refus Control::::::::::::::::::::::::::::::
     @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit refusDemande(@PathVariable long idDemande) throws IOException {
         return  demandAuditService.refugeAudit(idDemande);

@@ -133,11 +133,16 @@ public class WebSecurityConfig {
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
+            // Appel des differents controllers
             .antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/bienvenue/**").permitAll()
             .antMatchers("/api/roles/**").permitAll()
             .antMatchers("/api/collaborateur/**").permitAll()
-        .anyRequest().authenticated();
+            .antMatchers("/participant/**").permitAll()
+            .antMatchers("/formation/**").permitAll()
+            .antMatchers("/utlisateursecond/**").permitAll()
+
+              .anyRequest().authenticated();
            // .and()
             //.oauth2Login();
    // http.formLogin();

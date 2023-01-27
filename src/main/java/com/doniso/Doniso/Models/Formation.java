@@ -1,12 +1,12 @@
 package com.doniso.Doniso.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +45,11 @@ public class Formation {
 
     @Column(length = 15)
     private  int heure;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String emailformateur;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
     @Column(length = 16)
