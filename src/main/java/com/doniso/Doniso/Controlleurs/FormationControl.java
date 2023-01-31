@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100" }, maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/formation")
 @AllArgsConstructor
@@ -68,16 +68,16 @@ public class FormationControl {
     @PostMapping("/ajout/{id}")
    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String create(
-            //@RequestParam("file")MultipartFile file,
+            @RequestParam("file")MultipartFile file,
             @PathVariable long id,
             @Valid @RequestParam(value = "formati") String donneesformation,
             @Param("formateur") String formateur) throws IOException {
 
         //  Partie Insertion Image
         Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
-        //String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-        //String uploadDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
-       //ConfigImages.saveimg(uploadDir, imageName, file);
+        String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+        String uploadDir = "C:/Projet_Ionic/Doniso-front-end/src/assets/images/Back-end";
+       ConfigImages.saveimg(uploadDir, imageName, file);
 
         // Envoie Notification automatiquement lors ajout formation
         Notification notification = new Notification();
@@ -92,7 +92,7 @@ public class FormationControl {
         notification.setDescription(createur.getUsername() + " a ajouté une nouvelle formation.\n Pour plus d'information, veuillez contacter " + formation.getContact());
         notification.getUtilisateurs().add(createur);
         notificationRepo.save(notification);
-       //formation.setImage(imageName);
+       formation.setImage(imageName);
        // mailSender.send(emailConstructor.constructFormateurEmail(formateur)); // Permet d'envoyer gmail
         return formationService.creer(formation);
 
@@ -100,7 +100,7 @@ public class FormationControl {
 
     // Voir Etat formation
     @GetMapping("/regarder/{etat}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Object rea(@PathVariable String etat){
         if (etat.equals("encours")){
             return formationService.voiretat(Etat.ENCOURS);
@@ -126,7 +126,7 @@ public class FormationControl {
 
     // Voir formation par id
     @GetMapping("/voir/{idFormat}")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Optional<Formation> read(@PathVariable("idFormat") Long idFormat){
         return formationService.lireParID(idFormat);
     }
@@ -144,4 +144,5 @@ public class FormationControl {
     public String delete(@PathVariable Long idFormat){
         return formationService.supprimer(idFormat);
     }
+
 }

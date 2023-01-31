@@ -36,7 +36,7 @@ public class CommentaireServiceImpl  implements CommentaireService{
     public Commentaire modifier(Long idCom, Commentaire commentaire) {
         return commentaireRepo.findById(idCom)
                 .map(c-> {
-                    c.setNom(commentaire.getNom());
+                   // c.setNom(commentaire.getNom());
                     c.setDescription(commentaire.getDescription());
                     return  commentaireRepo.save(c);
                 }).orElseThrow(() -> new RuntimeException("Commentaire non trouvé !!"));

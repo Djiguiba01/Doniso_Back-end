@@ -46,10 +46,11 @@ public class Formation {
     @Column(length = 15)
     private  int heure;
 
-    @NotBlank
+   /* @NotBlank
     @Size(max = 50)
     @Email
     private String emailformateur;
+    */
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
     @Column(length = 16)
@@ -73,4 +74,8 @@ public class Formation {
 
     @ManyToOne
     Utilisateurs formateur;
+
+    public Formation(long idformation) {
+        this.idFormat = idformation;
+    }
 }

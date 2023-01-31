@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/demandpart")
 @AllArgsConstructor
@@ -38,12 +39,12 @@ public class DemandAuditControl {
 
    // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
    @PostMapping("/accepter/{idDemande}") // Acception Control:::::::::::::::::::::::::::
-   @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
    public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
        return  demandAuditService.valideAudit(idDemande);
    }
     @PostMapping("/refus/{idDemande}") // Refus Control::::::::::::::::::::::::::::::
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit refusDemande(@PathVariable long idDemande) throws IOException {
         return  demandAuditService.refugeAudit(idDemande);
     }
@@ -51,7 +52,7 @@ public class DemandAuditControl {
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       @PostMapping("/ajout")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit, @Param("file") MultipartFile file) throws IOException {
         String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
         DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
@@ -64,25 +65,25 @@ public class DemandAuditControl {
 
 
     @GetMapping("/voir")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public List<DemandAudit> read(){
         return demandAuditService.lire();
     }
 
     @GetMapping("/voir/{idDemand}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Optional<DemandAudit> read(@PathVariable("idDemand") Long idDemand){
         return demandAuditService.lireParID(idDemand);
     }
 
     @PutMapping("/update/{idDemand}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit update(@PathVariable Long idDemand, @RequestBody DemandAudit demandAudit) {
         return demandAuditService.modifier(idDemand, demandAudit);
     }
 
     @DeleteMapping("/supprimer/{idDemand}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable Long idDemand){
         return demandAuditService.supprimer(idDemand);
     }

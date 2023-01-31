@@ -30,7 +30,7 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     public DemandAudit valideAudit(Long idDemand)  {
         DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);
         demandAudit.setAuditstatus(AuditDemand.ACCEPTER);
-        mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
+        //mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
 
@@ -39,7 +39,7 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     public DemandAudit refugeAudit(Long idDemand)  {
         DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);
         demandAudit.setAuditstatus(AuditDemand.NON_ACCEPTER);
-        mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
 

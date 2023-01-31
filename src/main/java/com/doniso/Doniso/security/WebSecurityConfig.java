@@ -140,7 +140,10 @@ public class WebSecurityConfig {
             .antMatchers("/api/collaborateur/**").permitAll()
             .antMatchers("/participant/**").permitAll()
             .antMatchers("/formation/**").permitAll()
-            .antMatchers("/utlisateursecond/**").permitAll()
+              .antMatchers("/demandpart/**").permitAll()
+              .antMatchers("/commentaire/**").permitAll()
+
+              .antMatchers("/utlisateursecond/**").permitAll()
 
               .anyRequest().authenticated();
            // .and()

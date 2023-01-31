@@ -19,9 +19,11 @@ public interface FormationService {
 
     List<Object> voiretat(Etat etat); // Voir Etat formation
 
+    //List<Etat> findByEtat(Etat etat);
 
     // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::
     String creer(Formation formation);
+
 
     List<Formation> lire();
 

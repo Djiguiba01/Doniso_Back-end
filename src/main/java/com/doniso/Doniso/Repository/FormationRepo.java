@@ -17,6 +17,7 @@ public interface FormationRepo extends JpaRepository<Formation, Long> {
 
     List<Object> findByEtat (Etat etat); // Voir formation part Etat
 
+
     // ::::::::::::::
     Formation findByTitre(String titre);
 
