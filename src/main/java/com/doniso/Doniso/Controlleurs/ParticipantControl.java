@@ -1,5 +1,7 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
 import com.doniso.Doniso.Service.ParticipantService;
@@ -35,9 +37,16 @@ public class ParticipantControl {
         return  participantService.nonvalideParticipant(idParticipant);
     }
 
+   // @GetMapping("/voirformationuser/{idutilisateur}")
+   // public List<Formation> voirformationparticp(@PathVariable Long idutilisateur){
+     //   return participantService.Voirlisteformationparticiper(idutilisateur);
+    //}
+
+
+
     // Voir Etat formation
     @GetMapping("/status/{statuspart}")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Object reaObject(@PathVariable String statuspart){
         if (statuspart.equals("desoler")){
             return participantService.voirParticipantstatus(ValidParticipant.NON_VALIDER);

@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
 
@@ -12,7 +13,11 @@ public interface ParticipantService {
     Participant valideParticipant(Long idPart);
     Participant nonvalideParticipant(Long idPart);
 
+    //List<Formation> Voirlisteformationparticiper (Long idform);
+
+
     List<Object> voirParticipantstatus(ValidParticipant validParticipant);
+
 
 
 

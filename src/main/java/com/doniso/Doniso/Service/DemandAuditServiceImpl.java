@@ -42,9 +42,14 @@ public class DemandAuditServiceImpl implements DemandAuditService{
         //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
+// Voir formations par utilisateur:::::::::::
+    @Override
+    public List<DemandAudit> Voirparutilisateur(Utilisateurs utilisateurs) {
+        return demandAuditRepo.findByUtilisateurs(utilisateurs);
+    }
 
 
-// Les CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // Les CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @Override
     public DemandAudit creer(DemandAudit demandAudit) {
         demandAudit.setAuditstatus(AuditDemand.ENCOURS_TRAITEMENT);

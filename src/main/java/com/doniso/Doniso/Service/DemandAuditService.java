@@ -1,6 +1,7 @@
 package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public interface DemandAuditService {
     DemandAudit valideAudit(Long idDemand);
 
     DemandAudit refugeAudit(Long idDemand);
+
+    // Voir formations par utilisateur::::::::::::::::::::
+    List<DemandAudit> Voirparutilisateur (Utilisateurs utilisateurs);
 
 
     // CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

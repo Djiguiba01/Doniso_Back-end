@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="DemandeFormation")
@@ -38,5 +40,8 @@ public class DemandAudit {
     @Column(length = 20)
     private AuditDemand auditstatus;
 
+    // Un utilisateur peut faire plusieurs demandes
+    @ManyToOne
+    Utilisateurs utilisateurs;
 
 }

@@ -1,6 +1,8 @@
 package com.doniso.Doniso.Controlleurs;
 
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Repository.UtilisateursRepository;
 import com.doniso.Doniso.Service.DemandAuditService;
 import com.doniso.Doniso.payload.Autres.ConfigImages;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class DemandAuditControl {
 
     private final DemandAuditService demandAuditService; // Injection demande service
+    private final UtilisateursRepository utilisateursRepository;
 
    /* @PostMapping("/ajout")
     @PostAuthorize("hasAnyAuthority('ROLE_USER')")
@@ -49,19 +52,31 @@ public class DemandAuditControl {
         return  demandAuditService.refugeAudit(idDemande);
     }
 
+    // Voir formations par utilisateur::::::::::::::::::::
+    @GetMapping("/voirformation/{idutilisateur}")
+    public List<DemandAudit> voirformationdemand (@PathVariable Long idutilisateur){
+        Utilisateurs utilisateurs= utilisateursRepository.findById(idutilisateur).get();
+        return demandAuditService.Voirparutilisateur(utilisateurs);
+    }
+
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-      @PostMapping("/ajout")
+      @PostMapping("/ajout/{idutilisateur}")
     //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit, @Param("file") MultipartFile file) throws IOException {
+    public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit,
+                              @Param("file") MultipartFile file,
+                              @PathVariable Long idutilisateur) throws IOException {
         String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
         DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
+        demandAudit1.setUtilisateurs(new Utilisateurs(idutilisateur));
         demandAudit1.setPhoto(nomfile);
         String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
         ConfigImages.saveimg(uploaDir, nomfile, file);
 
         return  demandAuditService.creer(demandAudit1);
     }
+
+
 
 
     @GetMapping("/voir")

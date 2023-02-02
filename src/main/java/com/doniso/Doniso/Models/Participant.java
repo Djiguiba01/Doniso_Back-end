@@ -4,9 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="participant")
+@Table(name="demande")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,4 +43,8 @@ public class Participant {
     @Enumerated(EnumType.STRING)
     @Column(length = 40)
     private ValidParticipant status;
+
+    // Liaison
+    @ManyToMany
+    List<Utilisateurs> utilisateurs = new ArrayList<>();
 }

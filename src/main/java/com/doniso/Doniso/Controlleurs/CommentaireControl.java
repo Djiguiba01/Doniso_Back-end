@@ -32,13 +32,12 @@ public class CommentaireControl {
     }
 
     // Ajouter un commentaire à une formation
+    // Et il prend en compte id de l'utilisateur et de la formation
     @PostMapping("/ajout/{idutilisateur}/{idformation}")
    // @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Commentaire create(@Param("description") String description,
                               @PathVariable long idutilisateur,
                               @PathVariable long idformation) {
-        //Formation fr = formationRepo.findById(formation).get();
-       // commentaire.setFormation(fr);
         Commentaire commentaire =new Commentaire(description);
         commentaire.setUtilisateurs(new Utilisateurs(idutilisateur));
         commentaire.setFormation(new Formation(idformation));
@@ -54,7 +53,7 @@ public class CommentaireControl {
 
 
     @GetMapping("/voir/{idCom}")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Optional<Commentaire> read(@PathVariable("idCom") Long idCom){
         return commentaireService.lireParID(idCom);
     }

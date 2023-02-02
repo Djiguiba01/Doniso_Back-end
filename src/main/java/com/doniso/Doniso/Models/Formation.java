@@ -28,16 +28,16 @@ public class Formation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFormat;
 
-    @Column(length = 15)
+   // @Column(length = 15)
     private  String titre;
 
     //@Column(length = 15)
     //@Lob
     //@Column(name = "images", length = 900)
     private  String image;
-    @Column(length = 20)
+   // @Column(length = 20)
     private String lieu;
-    @Column(length = 50)
+   // @Column(length = 50)
     private  String description;
 
     @Column(length = 50)
@@ -53,17 +53,17 @@ public class Formation {
     */
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
-    @Column(length = 16)
+   // @Column(length = 16)
     private Date datedebut;
 
     @JsonFormat(pattern = "yyyy-MM-dd", shape =  JsonFormat.Shape.STRING)
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(length = 16)
+   // @Column(length = 16)
     private Date datefin;
 
     // Les liaisons
     @Enumerated(EnumType.STRING)
-    @Column(length = 60)
+   // @Column(length = 60)
     private Etat etat;
 
     @OneToMany(mappedBy = "formation")
