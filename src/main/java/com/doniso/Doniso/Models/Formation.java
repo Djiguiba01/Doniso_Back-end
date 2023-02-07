@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="Formation")
@@ -78,4 +79,15 @@ public class Formation {
     public Formation(long idformation) {
         this.idFormat = idformation;
     }
+
+    public List<Participant> getParticipant() {
+        return null;
+    }
+
+    @OneToMany
+//    @JoinTable(
+//            name = "participant_formation",
+//            joinColumns = @JoinColumn(name = "idFormat"),
+//            inverseJoinColumns = @JoinColumn(name = "idPart"))
+    List<Participant> participants;
 }

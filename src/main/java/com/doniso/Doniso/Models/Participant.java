@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="demande")
+@Table(name="participant")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -45,6 +45,14 @@ public class Participant {
     private ValidParticipant status;
 
     // Liaison
-    @ManyToMany
-    List<Utilisateurs> utilisateurs = new ArrayList<>();
+    @ManyToOne
+    Formation formation;
+
+    public Participant(String nom, String deuxNom, String email, String profession, Sexe sexe) {
+        this.nom = nom;
+        this.deuxNom = deuxNom;
+        this.email = email;
+        this.profession = profession;
+        this.sexe = sexe;
+    }
 }

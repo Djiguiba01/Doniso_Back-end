@@ -3,7 +3,9 @@ package com.doniso.Doniso.Service;
 import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
+import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Repository.FormationRepo;
+import com.doniso.Doniso.Repository.ParticipantRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +27,8 @@ public class FormationServiceImpl implements FormationService{
 
     @Autowired
     private final JavaMailSender mailSender; // Envoie gmail
+    @Autowired
+    private ParticipantRepo participantRepo;
 
     // Etat feormation:::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::
@@ -101,4 +106,5 @@ public class FormationServiceImpl implements FormationService{
         formationRepo.deleteById(idFormat);
         return "Formation supprimée !";
     }
+
 }

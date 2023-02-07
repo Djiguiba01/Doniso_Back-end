@@ -4,7 +4,13 @@ import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
+import com.doniso.Doniso.Repository.FormationRepo;
+import com.doniso.Doniso.Repository.ParticipantRepo;
+import com.doniso.Doniso.Service.FormationService;
 import com.doniso.Doniso.Service.ParticipantService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -21,6 +27,12 @@ import java.util.Optional;
 public class ParticipantControl {
     @Autowired
     private final ParticipantService participantService;
+    @Autowired
+    private final FormationService formationService;
+    @Autowired
+    private FormationRepo formationRepo;
+    @Autowired
+    private ParticipantRepo participantRepo;
 
 
     // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -64,10 +76,26 @@ public class ParticipantControl {
 
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    @PostMapping("/ajout")
+    @PostMapping("/ajout/{idFormat}")
     //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public Participant create(@RequestBody Participant participant) {
-        return  participantService.creer(participant);
+    public Participant create(@RequestParam("participant") String participant2,@PathVariable("idFormat") Long idFormat) {
+        try{
+            Participant participant = new JsonMapper().readValue(participant2, Participant.class);
+            Formation idFormation = formationService.lireParID(idFormat).get();
+            Participant participant1 = new Participant(
+                    participant.getNom(),participant.getDeuxNom(), participant.getEmail(),
+                    participant.getProfession(),participant.getSexe()
+            );
+            if(idFormation != null){
+                participant1.setFormation(idFormation);
+                return  participantService.creer(participant1);
+            }else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/voir")

@@ -1,6 +1,8 @@
 package com.doniso.Doniso.Controlleurs;
 
+import com.doniso.Doniso.Models.AuditDemand;
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Utilisateurs;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import com.doniso.Doniso.Service.DemandAuditService;
@@ -15,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
@@ -101,6 +105,14 @@ public class DemandAuditControl {
     //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable Long idDemand){
         return demandAuditService.supprimer(idDemand);
+    }
+
+    // Vooir Etat DemandAudit
+    @GetMapping("/enumValues")
+    public List<String> getEnumValues() {
+        return Arrays.stream(AuditDemand.values())
+                .map(AuditDemand::name)
+                .collect(Collectors.toList());
     }
 
 

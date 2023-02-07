@@ -2,6 +2,7 @@ package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
+import com.doniso.Doniso.Models.Participant;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public interface FormationService {
 
     //List<Etat> findByEtat(Etat etat);
 
+
     // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::
     String creer(Formation formation);
 
@@ -32,4 +34,7 @@ public interface FormationService {
     Formation modifier(Long idFormat, Formation formation);
 
     String supprimer(Long idFormat);
+
+
+    // Participation à une formation
 }
