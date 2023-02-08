@@ -21,9 +21,12 @@ public interface ParticipantRepo extends JpaRepository<Participant, Long> {
 
     List<Object> findByStatus(ValidParticipant validParticipant); // Voir Validation participant
 
+
+
+    // Voir tout les participant par formation
     @Query(value = "SELECT * FROM `participant` WHERE participant.formation_id_format =:idFormat",nativeQuery = true)
     List<Participant> getByformation(@Param("idFormat") Long idFormat);
 
-
+    // Voir tout les participants par Status
       List<Participant> findByFormationAndStatus(Formation idFormat, ValidParticipant status);
 }

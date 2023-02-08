@@ -133,7 +133,7 @@ public class ParticipantControl {
         return participantService.supprimer(idpart);
     }
 
-    // Voir Par formation
+    // Voir tout les participants Par formation
     @GetMapping("/voirpart/{idFormat}")
     public List<Participant> formations(@PathVariable("idFormat") Long idFormat){
         Formation formation = formationRepo.getReferenceById(idFormat);
@@ -141,7 +141,8 @@ public class ParticipantControl {
         return participantRepo.getByformation(idFormat);
     }
 
-    @GetMapping("/encoursparticip/{idFormat}/{status}")
+    // Voir tout les participants Par formation en fonction de son status
+    @GetMapping("/encoursparticip/{status}/{idFormat}")
     public List<Participant> formationsencours(@PathVariable("idFormat") Formation idFormat, @PathVariable ValidParticipant status){
         List<Participant> participants = participantRepo.findAll();
                 return participantRepo.findByFormationAndStatus(idFormat, status);
