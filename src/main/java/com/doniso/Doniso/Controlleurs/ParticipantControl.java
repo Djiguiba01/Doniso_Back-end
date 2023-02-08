@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.doniso.Doniso.Models.ValidParticipant.VALIDER;
+
 @CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/participant")
@@ -65,7 +67,7 @@ public class ParticipantControl {
             return participantService.voirParticipantstatus(ValidParticipant.NON_VALIDER);
         }
         else if (statuspart.equals("valider")) {
-            return participantService.voirParticipantstatus(ValidParticipant.VALIDER);
+            return participantService.voirParticipantstatus(VALIDER);
         }else if (statuspart.equals("encours")){
             return participantService.voirParticipantstatus(ValidParticipant.ENCOURS_TRAITEMENT);
         } else {
@@ -131,6 +133,7 @@ public class ParticipantControl {
         return participantService.supprimer(idpart);
     }
 
+    // Voir Par formation
     @GetMapping("/voirpart/{idFormat}")
     public List<Participant> formations(@PathVariable("idFormat") Long idFormat){
         Formation formation = formationRepo.getReferenceById(idFormat);
@@ -138,6 +141,11 @@ public class ParticipantControl {
         return participantRepo.getByformation(idFormat);
     }
 
+    @GetMapping("/encoursparticip/{idFormat}/{status}")
+    public List<Participant> formationsencours(@PathVariable("idFormat") Formation idFormat, @PathVariable ValidParticipant status){
+        List<Participant> participants = participantRepo.findAll();
+                return participantRepo.findByFormationAndStatus(idFormat, status);
+    }
 
 
 

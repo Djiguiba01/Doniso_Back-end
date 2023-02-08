@@ -25,4 +25,5 @@ public interface ParticipantRepo extends JpaRepository<Participant, Long> {
     List<Participant> getByformation(@Param("idFormat") Long idFormat);
 
 
+      List<Participant> findByFormationAndStatus(Formation idFormat, ValidParticipant status);
 }
