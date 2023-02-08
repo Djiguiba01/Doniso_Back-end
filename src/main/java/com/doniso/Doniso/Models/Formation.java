@@ -1,6 +1,7 @@
 package com.doniso.Doniso.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -76,13 +77,14 @@ public class Formation {
     @ManyToOne
     Utilisateurs formateur;
 
-    public Formation(long idformation) {
+    public Formation(Long idformation) {
         this.idFormat = idformation;
     }
 
     public List<Participant> getParticipant() {
         return null;
     }
+
 
     @OneToMany
 //    @JoinTable(

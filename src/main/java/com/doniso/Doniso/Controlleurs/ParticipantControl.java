@@ -1,9 +1,6 @@
 package com.doniso.Doniso.Controlleurs;
 
-import com.doniso.Doniso.Models.DemandAudit;
-import com.doniso.Doniso.Models.Formation;
-import com.doniso.Doniso.Models.Participant;
-import com.doniso.Doniso.Models.ValidParticipant;
+import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Repository.ParticipantRepo;
 import com.doniso.Doniso.Service.FormationService;
@@ -13,12 +10,16 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
@@ -72,6 +73,14 @@ public class ParticipantControl {
         }
     }
 
+    // Voir les Etat participant
+    @GetMapping("/enumValues")
+    public List<String> getEnumValues() {
+        return Arrays.stream(ValidParticipant.values())
+                .map(ValidParticipant::name)
+                .collect(Collectors.toList());
+    }
+
 
 
 
@@ -121,4 +130,15 @@ public class ParticipantControl {
     public String delete(@PathVariable Long idpart){
         return participantService.supprimer(idpart);
     }
+
+    @GetMapping("/voirpart/{idFormat}")
+    public List<Participant> formations(@PathVariable("idFormat") Long idFormat){
+        Formation formation = formationRepo.getReferenceById(idFormat);
+        System.err.println(formation);
+        return participantRepo.getByformation(idFormat);
+    }
+
+
+
+
 }

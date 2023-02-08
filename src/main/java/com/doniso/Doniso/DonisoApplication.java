@@ -1,21 +1,19 @@
 package com.doniso.Doniso;
 
-import com.doniso.Doniso.Models.ERole;
-import com.doniso.Doniso.Models.Role;
-import com.doniso.Doniso.Models.Sexe;
-import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.RoleRepository;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Import(JacksonConfig.class)
 @SpringBootApplication
 public class DonisoApplication  implements CommandLineRunner{
 

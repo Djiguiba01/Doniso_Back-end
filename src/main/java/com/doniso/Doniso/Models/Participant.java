@@ -20,7 +20,7 @@ public class Participant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPart;
 
-    @Column(length = 20)
+    //@Column(length = 20)
     private  String nom;
 
     private String deuxNom;
@@ -28,24 +28,24 @@ public class Participant {
   /*  @Column(length = 12)
     private  String genre;
    */
-    @Column(length = 50)
+   // @Column(length = 50)
     @Email
     private  String email;
 
-    @Column(length = 60)
+    //@Column(length = 60)
     private String profession;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    //@Enumerated(EnumType.STRING)
+    //@Column(length = 20)
     private Sexe sexe;
 
     // Les liaisons
-    @Enumerated(EnumType.STRING)
-    @Column(length = 40)
+   // @Enumerated(EnumType.STRING)
+    //@Column(length = 40)
     private ValidParticipant status;
 
     // Liaison
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Formation formation;
 
     public Participant(String nom, String deuxNom, String email, String profession, Sexe sexe) {
