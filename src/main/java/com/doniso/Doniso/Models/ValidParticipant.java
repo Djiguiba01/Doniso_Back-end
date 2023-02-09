@@ -7,7 +7,6 @@ public enum ValidParticipant {
 
     NON_VALIDER,
 
-    VALIDER
-
+    VALIDER;
 
 }

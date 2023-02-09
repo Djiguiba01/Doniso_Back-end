@@ -1,6 +1,7 @@
 package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Email.EmailConstructor;
+import com.doniso.Doniso.Models.AuditDemand;
 import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
@@ -47,7 +48,8 @@ public class FormationServiceImpl implements FormationService{
         //mailSender.send(emailConstructor.constructFormationEtat(formation));// Permet d'envoyer gmail
         return formationRepo.save(formation);
     }
-//  Voir Etat formation
+
+    //  Voir Etat formation
     @Override
     public List<Object> voiretat(Etat etat) {
         return formationRepo.findByEtat(etat);

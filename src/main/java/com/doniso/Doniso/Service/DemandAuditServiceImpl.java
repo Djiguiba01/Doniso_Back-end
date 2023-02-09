@@ -48,6 +48,12 @@ public class DemandAuditServiceImpl implements DemandAuditService{
         return demandAuditRepo.findByUtilisateurs(utilisateurs);
     }
 
+    // Voir Participants Par Etat
+    @Override
+    public List<Object> voirauditstatus(AuditDemand auditstatus) {
+        return demandAuditRepo.findByAuditstatus(auditstatus);
+    }
+
 
     // Les CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @Override
@@ -87,4 +93,6 @@ public class DemandAuditServiceImpl implements DemandAuditService{
         demandAuditRepo.deleteById(idDemand);
         return "Formation supprimée !";
     }
+
+
 }

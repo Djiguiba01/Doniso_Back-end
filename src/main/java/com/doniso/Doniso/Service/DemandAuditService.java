@@ -1,6 +1,8 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.AuditDemand;
 import com.doniso.Doniso.Models.DemandAudit;
+import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Utilisateurs;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public interface DemandAuditService {
     // Voir formations par utilisateur::::::::::::::::::::
     List<DemandAudit> Voirparutilisateur (Utilisateurs utilisateurs);
 
+    List<Object> voirauditstatus(AuditDemand auditstatus); // Voir Etat Participants
+
+
 
     // CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -31,4 +36,9 @@ public interface DemandAuditService {
     DemandAudit modifier(Long idDemand, DemandAudit demandAudit);
 
     String supprimer(Long idDemand);
+
+
+
+
+
 }

@@ -1,15 +1,13 @@
 package com.doniso.Doniso.Controlleurs;
 
-import com.doniso.Doniso.Models.AuditDemand;
-import com.doniso.Doniso.Models.DemandAudit;
-import com.doniso.Doniso.Models.Etat;
-import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.UtilisateursRepository;
 import com.doniso.Doniso.Service.DemandAuditService;
 import com.doniso.Doniso.payload.Autres.ConfigImages;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.doniso.Doniso.Models.AuditDemand.ACCEPTER;
+import static com.doniso.Doniso.Models.ValidParticipant.VALIDER;
 
 @CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
 @RestController
@@ -114,6 +115,23 @@ public class DemandAuditControl {
                 .map(AuditDemand::name)
                 .collect(Collectors.toList());
     }
+
+    // Voir Etat formation
+    @GetMapping("/regarder/{auditstatus}")
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Object rea(@PathVariable String auditstatus){
+        if (auditstatus.equals("encours")){
+            return demandAuditService.voirauditstatus(AuditDemand.ENCOURS_TRAITEMENT);
+        }
+        else if (auditstatus.equals("accepter")) {
+            return demandAuditService.voirauditstatus(ACCEPTER);
+        }else if (auditstatus.equals("rejeter")){
+            return demandAuditService.voirauditstatus(AuditDemand.NON_ACCEPTER);
+        } else {
+            return "ssss dddd";
+        }
+    }
+
 
 
 }
