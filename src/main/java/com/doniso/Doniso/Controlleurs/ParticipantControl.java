@@ -40,14 +40,14 @@ public class ParticipantControl {
 
     // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // Valide Control:::::::::::::::::::::::::::
-    @PostMapping("/valide/{idPartipant}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PostMapping("/VALIDER/{idPartipant}")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Participant valideParticipant(@PathVariable long idPartipant) throws IOException {
         return  participantService.valideParticipant(idPartipant);
     }
     // Non Valide Control:::::::::::::::::::::::::::
-    @PostMapping("/rejeter/{idParticipant}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PostMapping("/NON_VALIDER/{idParticipant}")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Participant nonvalideParticipant(@PathVariable long idParticipant) throws IOException {
         return  participantService.nonvalideParticipant(idParticipant);
     }

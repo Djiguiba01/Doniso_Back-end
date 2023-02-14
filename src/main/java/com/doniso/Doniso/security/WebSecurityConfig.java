@@ -142,7 +142,7 @@ public class WebSecurityConfig {
             .antMatchers("/formation/**").permitAll()
               .antMatchers("/demandpart/**").permitAll()
               .antMatchers("/commentaire/**").permitAll()
-
+              .antMatchers("/notification/**").permitAll()
               .antMatchers("/utlisateursecond/**").permitAll()
 
               .anyRequest().authenticated();
