@@ -26,11 +26,20 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     @Autowired
     private final JavaMailSender mailSender; // Envoie gmail
 
+
+    @Override
+    public DemandAudit encousAudit(Long idDemand) {
+        DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);
+        demandAudit.setAuditstatus(AuditDemand.ENCOURS_TRAITEMENT);
+        // mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
+        return demandAuditRepo.save(demandAudit);
+    }
+
     @Override
     public DemandAudit valideAudit(Long idDemand)  {
         DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);
         demandAudit.setAuditstatus(AuditDemand.ACCEPTER);
-        mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
+        // mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
 
@@ -39,7 +48,7 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     public DemandAudit refugeAudit(Long idDemand)  {
         DemandAudit demandAudit = demandAuditRepo.findDemandAuditByIdDemand(idDemand);
         demandAudit.setAuditstatus(AuditDemand.NON_ACCEPTER);
-        mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
 // Voir formations par utilisateur:::::::::::

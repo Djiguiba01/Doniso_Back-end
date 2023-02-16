@@ -46,12 +46,18 @@ public class DemandAuditControl {
     */
 
    // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-   @PostMapping("/accepter/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+
+    @PostMapping("/ENCOURS_TRAITEMENT/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public DemandAudit encoursDemande(@PathVariable long idDemande) throws IOException {
+        return  demandAuditService.encousAudit(idDemande);
+    }
+   @PostMapping("/ACCEPTER/{idDemande}") // Acception Control:::::::::::::::::::::::::::
    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
    public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
        return  demandAuditService.valideAudit(idDemande);
    }
-    @PostMapping("/refus/{idDemande}") // Refus Control::::::::::::::::::::::::::::::
+    @PostMapping("/NON_ACCEPTER/{idDemande}") // Refus Control::::::::::::::::::::::::::::::
    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit refusDemande(@PathVariable long idDemande) throws IOException {
         return  demandAuditService.refugeAudit(idDemande);

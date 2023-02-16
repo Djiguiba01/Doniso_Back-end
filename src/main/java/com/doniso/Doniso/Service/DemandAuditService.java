@@ -13,6 +13,9 @@ import java.util.Optional;
 public interface DemandAuditService {
 
     // Methode validation service :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+    DemandAudit encousAudit(Long idDemand);
+
     DemandAudit valideAudit(Long idDemand);
 
     DemandAudit refugeAudit(Long idDemand);
