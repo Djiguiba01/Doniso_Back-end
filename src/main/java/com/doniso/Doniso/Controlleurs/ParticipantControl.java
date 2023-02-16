@@ -116,19 +116,19 @@ public class ParticipantControl {
     }
 
     @GetMapping("/voir/{idPart}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Optional<Participant> read(@PathVariable("idPart") Long idPart){
         return participantService.lireParID(idPart);
     }
 
     @PutMapping("/update/{idPart}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Participant update(@PathVariable Long idPart, @RequestBody Participant participant) {
         return participantService.modifier(idPart, participant);
     }
 
     @DeleteMapping("supprimer/{idpart}")
-    @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable Long idpart){
         return participantService.supprimer(idpart);
     }

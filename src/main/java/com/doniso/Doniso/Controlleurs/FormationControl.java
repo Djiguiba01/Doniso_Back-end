@@ -89,7 +89,7 @@ public class FormationControl {
         //  Partie Insertion Image
         Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "C:/Projet_Ionic/Doniso-front-end/src/assets/images/Back-end";
+        String uploadDir = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
        ConfigImages.saveimg(uploadDir, imageName, file);
 
         // Envoie Notification automatiquement lors ajout formation
@@ -139,7 +139,7 @@ public class FormationControl {
 
     // Voir formation par id
     @GetMapping("/voir/{idFormat}")
-   // @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+   //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Optional<Formation> read(@PathVariable("idFormat") Long idFormat){
         return formationService.lireParID(idFormat);
     }
