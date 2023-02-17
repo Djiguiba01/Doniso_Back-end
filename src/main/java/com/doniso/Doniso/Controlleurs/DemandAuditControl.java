@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 import static com.doniso.Doniso.Models.AuditDemand.ACCEPTER;
 import static com.doniso.Doniso.Models.ValidParticipant.VALIDER;
 
-@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100/" }, maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins ={ "http://localhost:4200/", "http://localhost:8100" }, maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/demandpart")
 @AllArgsConstructor
@@ -45,25 +46,26 @@ public class DemandAuditControl {
 
     */
 
-   // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     @PostMapping("/ENCOURS_TRAITEMENT/{idDemande}") // Acception Control:::::::::::::::::::::::::::
     //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit encoursDemande(@PathVariable long idDemande) throws IOException {
         return  demandAuditService.encousAudit(idDemande);
     }
-   @PostMapping("/ACCEPTER/{idDemande}") // Acception Control:::::::::::::::::::::::::::
-   //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-   public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
-       return  demandAuditService.valideAudit(idDemande);
-   }
+    @PostMapping("/ACCEPTER/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public DemandAudit accepterDemande(@PathVariable long idDemande) throws IOException {
+        return  demandAuditService.valideAudit(idDemande);
+    }
     @PostMapping("/NON_ACCEPTER/{idDemande}") // Refus Control::::::::::::::::::::::::::::::
-   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit refusDemande(@PathVariable long idDemande) throws IOException {
         return  demandAuditService.refugeAudit(idDemande);
     }
 
-    // Voir formations par utilisateur::::::::::::::::::::
+
+    // Voir Demande par utilisateur::::::::::::::::::::
     @GetMapping("/voirformation/{idutilisateur}")
     public List<DemandAudit> voirformationdemand (@PathVariable Long idutilisateur){
         Utilisateurs utilisateurs= utilisateursRepository.findById(idutilisateur).get();
@@ -72,7 +74,7 @@ public class DemandAuditControl {
 
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-      @PostMapping("/ajout/{idutilisateur}")
+    @PostMapping("/ajout/{idutilisateur}")
     //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public DemandAudit create(@Valid @RequestParam(value = "donneesaudit") String donneesaudit,
                               @Param("file") MultipartFile file,
@@ -81,7 +83,7 @@ public class DemandAuditControl {
         DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
         demandAudit1.setUtilisateurs(new Utilisateurs(idutilisateur));
         demandAudit1.setPhoto(nomfile);
-        String uploaDir = "C:/Projet_Ionic/Doniso/src/assets/images/Back-end";
+        String uploaDir = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
         ConfigImages.saveimg(uploaDir, nomfile, file);
 
         return  demandAuditService.creer(demandAudit1);
@@ -91,19 +93,19 @@ public class DemandAuditControl {
 
 
     @GetMapping("/voir")
-   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public List<DemandAudit> read(){
         return demandAuditService.lire();
     }
 
     @GetMapping("/voir/{idDemand}")
-   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Optional<DemandAudit> read(@PathVariable("idDemand") Long idDemand){
         return demandAuditService.lireParID(idDemand);
     }
 
     @PutMapping("/update/{idDemand}")
-   // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public DemandAudit update(@PathVariable Long idDemand, @RequestBody DemandAudit demandAudit) {
         return demandAuditService.modifier(idDemand, demandAudit);
     }
