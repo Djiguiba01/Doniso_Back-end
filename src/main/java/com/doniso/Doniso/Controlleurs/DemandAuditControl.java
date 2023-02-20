@@ -72,6 +72,20 @@ public class DemandAuditControl {
         return demandAuditService.Voirparutilisateur(utilisateurs);
     }
 
+    // Ajout lieu déroulement de la formation::::::::
+    @PostMapping("/PRESIDENTIELLE/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public DemandAudit presidentielleDemande(@PathVariable long idDemande) throws IOException {
+        return  demandAuditService.validePresidentielle(idDemande);
+    }
+
+    @PostMapping("/EN_LIGNE/{idDemande}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public DemandAudit enligneDemande(@PathVariable long idDemande) throws IOException {
+        return  demandAuditService.valideEnLigne(idDemande);
+    }
+
+
 
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping("/ajout/{idutilisateur}")
@@ -121,6 +135,14 @@ public class DemandAuditControl {
     public List<String> getEnumValues() {
         return Arrays.stream(AuditDemand.values())
                 .map(AuditDemand::name)
+                .collect(Collectors.toList());
+    }
+
+    // Vooir Etat DemandAudit
+    @GetMapping("/typedemande")
+    public List<String> getEnumValue() {
+        return Arrays.stream(DemandLigne.values())
+                .map(DemandLigne::name)
                 .collect(Collectors.toList());
     }
 

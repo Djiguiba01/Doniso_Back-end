@@ -1,9 +1,6 @@
 package com.doniso.Doniso.Service;
 
-import com.doniso.Doniso.Models.AuditDemand;
-import com.doniso.Doniso.Models.DemandAudit;
-import com.doniso.Doniso.Models.Etat;
-import com.doniso.Doniso.Models.Utilisateurs;
+import com.doniso.Doniso.Models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +21,11 @@ public interface DemandAuditService {
     List<DemandAudit> Voirparutilisateur (Utilisateurs utilisateurs);
 
     List<Object> voirauditstatus(AuditDemand auditstatus); // Voir Etat Participants
+
+    // Ajout lieu déroulement de la formation::::::::
+    DemandAudit validePresidentielle(Long idDemand);
+
+    DemandAudit valideEnLigne(Long idDemand);
 
 
 

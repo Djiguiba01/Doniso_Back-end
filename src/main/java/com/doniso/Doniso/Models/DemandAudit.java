@@ -40,6 +40,13 @@ public class DemandAudit {
     @Column(length = 20)
     private AuditDemand auditstatus;
 
+
+    // Les liaisons
+    @Enumerated(EnumType.STRING)
+    // @Column(length = 60)
+    private DemandLigne etatligne;
+
+
     // Un utilisateur peut faire plusieurs demandes
     @ManyToOne
     Utilisateurs utilisateurs;

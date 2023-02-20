@@ -18,6 +18,8 @@ public interface FormationService {
     // Etat formation
     // Methode validation service :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+    Formation initial(Long idFormat);
+
     Formation encours(Long idFormat);
 
     Formation terminer(Long idFormat);

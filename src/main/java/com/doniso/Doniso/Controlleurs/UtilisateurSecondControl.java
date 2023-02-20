@@ -52,8 +52,8 @@ public class UtilisateurSecondControl {
     }
 
     @GetMapping("/voir/{id}")
-    public Optional<Utilisateurs> read(@PathVariable("id") Long id){
-        return utilisateurSecondService.lireParID(id);
+    public Utilisateurs read(@PathVariable("id") Long id){
+        return utilisateurSecondService.lireParID(id).get();
     }
 
 

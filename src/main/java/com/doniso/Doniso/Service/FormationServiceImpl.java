@@ -43,6 +43,15 @@ public class FormationServiceImpl implements FormationService{
 
     // Etat feormation:::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::
+
+    @Override
+    public Formation initial(Long idFormat) {
+        Formation formation = formationRepo.findFormationByIdFormat(idFormat);
+        formation.setEtat(Formation.INITIE);
+        //mailSender.send(emailConstructor.constructFormationEtat(formation));// Permet d'envoyer gmail
+        return formationRepo.save(formation);
+    }
+
     @Override
     public Formation encours(Long idFormat) {
         Formation formation = formationRepo.findFormationByIdFormat(idFormat);

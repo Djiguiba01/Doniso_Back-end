@@ -69,6 +69,12 @@ public class FormationControl {
 
     // Etat Formation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::::::
+    @PostMapping("/INITIE/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation initialFormation(@PathVariable long idFormat) throws IOException {
+        return  formationService.initial(idFormat);
+    }
+    // Encours::::::::::::::
     @PostMapping("/ENCOURS/{idFormat}") // Acception Control:::::::::::::::::::::::::::
    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Formation encoursFormation(@PathVariable long idFormat) throws IOException {

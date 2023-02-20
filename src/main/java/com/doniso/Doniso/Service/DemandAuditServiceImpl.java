@@ -23,7 +23,8 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     // Acceptation demande formation ::::::::::::::::::::::::::::::::
     @Autowired
     private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
-    @Autowired
+
+   // @Autowired
     private final JavaMailSender mailSender; // Envoie gmail
 
 
@@ -34,6 +35,8 @@ public class DemandAuditServiceImpl implements DemandAuditService{
         // mailSender.send(emailConstructor.constructDemandAuditEmail(demandAudit));// Permet d'envoyer gmail
         return demandAuditRepo.save(demandAudit);
     }
+
+
 
     @Override
     public DemandAudit valideAudit(Long idDemand)  {
@@ -62,6 +65,24 @@ public class DemandAuditServiceImpl implements DemandAuditService{
     public List<Object> voirauditstatus(AuditDemand auditstatus) {
         return demandAuditRepo.findByAuditstatus(auditstatus);
     }
+
+    // Ajout lieu déroulement de la formation::::::::
+    @Override
+    public DemandAudit validePresidentielle(Long idDemand) {
+        DemandAudit demandAudit = demandAuditRepo.findDemandLigneByIdDemand(idDemand);
+        demandAudit.setEtatligne(DemandLigne.PRESIDENTIELLE);
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        return demandAuditRepo.save(demandAudit);
+    }
+
+    @Override
+    public DemandAudit valideEnLigne(Long idDemand) {
+        DemandAudit demandAudit = demandAuditRepo.findDemandLigneByIdDemand(idDemand);
+        demandAudit.setEtatligne(DemandLigne.EN_LIGNE);
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        return demandAuditRepo.save(demandAudit);
+    }
+
 
 
     // Les CRUD ::::::::::::::::::::::::::::::::::::::::::::::::::::::

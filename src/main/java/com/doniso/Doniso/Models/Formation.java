@@ -2,6 +2,7 @@ package com.doniso.Doniso.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Formation {
     // A voir après
     public static final Etat ENCOURS = Etat.ENCOURS ;
     public static final Etat TERMINER = Etat.TERMINER;
+    public static final Etat INITIE = Etat.INITIE;
     //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +77,7 @@ public class Formation {
     Utilisateurs createur;
 
     @ManyToOne
+            @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     Utilisateurs formateur;
 
     public Formation(Long idformation) {
