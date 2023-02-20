@@ -26,10 +26,20 @@ public class FormationServiceImpl implements FormationService{
     @Autowired
     private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
 
-    @Autowired
+
     private final JavaMailSender mailSender; // Envoie gmail
     @Autowired
     private ParticipantRepo participantRepo;
+
+
+    // Voir sa participation à une formation
+//    @Override
+//    public List<Formation> voirSaParticipation(Participant participant) {
+//        return formationRepo.findByParticipant(participant);
+//    }
+
+
+
 
     // Etat feormation:::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::
@@ -64,7 +74,7 @@ public class FormationServiceImpl implements FormationService{
     public String creer(Formation formation) {
 
         if(formation.getDatedebut().after(formation.getDatefin())){
-            return "Veuillez donner une date corecte !";
+            return "Veuillez donner une date correcte !";
         }
         else{
              formationRepo.save(formation);
@@ -80,6 +90,7 @@ public class FormationServiceImpl implements FormationService{
 
     @Override
     public Optional<Formation> lireParID(Long idFormat) {
+
         return formationRepo.findById(idFormat);
     }
 

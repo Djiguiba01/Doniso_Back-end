@@ -3,6 +3,7 @@ package com.doniso.Doniso.Repository;
 import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
+import com.doniso.Doniso.Models.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Repository
 public interface FormationRepo extends JpaRepository<Formation, Long> {
+
+    // Voir sa participation à une formation
+   // List<Formation> findByParticipant (Participant participant);
 
     // Validation::::::::
     Formation findFormationByIdFormat(Long idFormat);// Methode validation demande formation par id

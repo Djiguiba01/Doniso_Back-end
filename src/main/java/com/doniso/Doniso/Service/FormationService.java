@@ -11,6 +11,9 @@ import java.util.Optional;
 @Service
 public interface FormationService {
 
+    // Voir sa participation à une formation
+    //List<Formation> voirSaParticipation (Participant participant);
+
 
     // Etat formation
     // Methode validation service :::::::::::::::::::::::::::::::::::::::::::::::::::::::

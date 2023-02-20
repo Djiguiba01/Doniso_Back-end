@@ -16,7 +16,11 @@ public interface ParticipantRepo extends JpaRepository<Participant, Long> {
     // La liste des formations par participant
    // List<Formation> findFormationsByParticipant(@Param("idPart") Long idPart);
 
+
+
     Participant findParticipantByIdPart(Long idPart);
+
+
 
 
     List<Object> findByStatus(ValidParticipant validParticipant); // Voir Validation participant

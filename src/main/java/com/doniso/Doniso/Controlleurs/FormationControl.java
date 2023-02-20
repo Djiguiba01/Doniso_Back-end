@@ -57,8 +57,15 @@ public class FormationControl {
     @Autowired
     private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
 
-    @Autowired
+//    @Autowired
     private final JavaMailSender mailSender; // Envoie gmail
+
+    // Voir sa paeticipation à une formation
+//    @GetMapping("/mesformation/{participant}")
+//    public List<Formation> voirformation(@PathVariable("idFormat") Participant participant){
+//        return formationService.voirSaParticipation(participant);
+//    }
+
 
     // Etat Formation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // Encours::::::::::::::
@@ -89,7 +96,7 @@ public class FormationControl {
         //  Partie Insertion Image
         Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "C:/Users/B.Djiguiba/Desktop/FinODC/Doniso-front-end/src/assets/images";
+        String uploadDir = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
        ConfigImages.saveimg(uploadDir, imageName, file);
 
         // Envoie Notification automatiquement lors ajout formation
@@ -140,8 +147,8 @@ public class FormationControl {
     // Voir formation par id
     @GetMapping("/voir/{idFormat}")
    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
-    public Optional<Formation> read(@PathVariable("idFormat") Long idFormat){
-        return formationService.lireParID(idFormat);
+    public Formation read(@PathVariable("idFormat") Long idFormat){
+        return formationService.lireParID(idFormat).get();
     }
 
     // Faire mise à jour formation

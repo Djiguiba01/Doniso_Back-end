@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface ParticipantService {
 
+
     // Validation Participant::::::::::::::::::::::::::::::::::::::::::::
     Participant valideParticipant(Long idPart);
     Participant nonvalideParticipant(Long idPart);

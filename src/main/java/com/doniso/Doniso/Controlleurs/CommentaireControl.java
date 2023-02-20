@@ -45,7 +45,7 @@ public class CommentaireControl {
     }
 
     @GetMapping("/voir")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public List<Commentaire> read(){
         return commentaireService.lire();
     }
@@ -59,13 +59,13 @@ public class CommentaireControl {
     }
 
     @PutMapping("/update/{idCom}")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+    //@PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public Commentaire update(@PathVariable Long idCom, @RequestBody Commentaire commentaire) {
         return commentaireService.modifier(idCom, commentaire);
     }
 
     @DeleteMapping("/supprimer/{idCom}")
-    @PostAuthorize("hasAnyAuthority('ROLE_USER')")
+   // @PostAuthorize("hasAnyAuthority('ROLE_USER')")
     public String delete(@PathVariable Long idCom){
         return commentaireService.supprimer(idCom);
     }

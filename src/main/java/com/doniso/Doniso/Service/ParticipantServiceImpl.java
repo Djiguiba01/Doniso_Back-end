@@ -3,6 +3,7 @@ package com.doniso.Doniso.Service;
 import com.doniso.Doniso.Email.EmailConstructor;
 import com.doniso.Doniso.Models.Participant;
 import com.doniso.Doniso.Models.ValidParticipant;
+import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Repository.ParticipantRepo;
 import com.doniso.Doniso.Repository.RoleRepository;
 import lombok.AllArgsConstructor;
@@ -21,12 +22,16 @@ public class ParticipantServiceImpl implements ParticipantService{
     @Autowired
     private final ParticipantRepo participantRepo;
     private final RoleRepository roleRepository;
+    private final FormationRepo formationRepo;
 
     // Etat Participant::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @Autowired
     private final EmailConstructor emailConstructor; // Connection avec class email ( EmailConstructor )
-    @Autowired
+
     private final JavaMailSender mailSender; // Envoie gmail
+
+
+
     // Non_Participant
     @Override
     public Participant nonvalideParticipant(Long idPart) {
