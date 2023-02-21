@@ -88,6 +88,18 @@ public class FormationControl {
         return  formationService.terminer(idFormat);
     }
 
+    // Ajout lieu déroulement de la formation::::::::
+    @PostMapping("/PRESIDENTIELLE/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation presidentielleDemande(@PathVariable long idFormat) throws IOException {
+        return  formationService.validePresidentielle(idFormat);
+    }
+
+    @PostMapping("/EN_LIGNE/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation enligneDemande(@PathVariable long idFormat) throws IOException {
+        return  formationService.valideEnLigne(idFormat);
+    }
 
 
     // CRUD REQUETTE:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

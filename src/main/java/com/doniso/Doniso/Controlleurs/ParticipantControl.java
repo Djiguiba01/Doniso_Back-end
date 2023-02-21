@@ -10,9 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -40,6 +37,13 @@ public class ParticipantControl {
 
     // Validation Control ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // Valide Control:::::::::::::::::::::::::::
+
+    @PostMapping("/ENCOURS_TRAITEMENT/{idPartipant}")
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Participant encoursParticipant(@PathVariable long idPartipant) throws IOException {
+        return  participantService.encoursParticipant(idPartipant);
+    }
+
     @PostMapping("/VALIDER/{idPartipant}")
    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Participant valideParticipant(@PathVariable long idPartipant) throws IOException {

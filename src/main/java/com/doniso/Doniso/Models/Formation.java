@@ -67,8 +67,11 @@ public class Formation {
 
     // Les liaisons
     @Enumerated(EnumType.STRING)
-   // @Column(length = 60)
     private Etat etat;
+
+    @Enumerated(EnumType.STRING)
+    private LieuFormation etatlieu;
+
 
     @OneToMany(mappedBy = "formation")
     List<Commentaire> commentaires = new ArrayList<>();

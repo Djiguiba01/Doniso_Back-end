@@ -1,5 +1,6 @@
 package com.doniso.Doniso.Service;
 
+import com.doniso.Doniso.Models.DemandAudit;
 import com.doniso.Doniso.Models.Etat;
 import com.doniso.Doniso.Models.Formation;
 import com.doniso.Doniso.Models.Participant;
@@ -25,6 +26,11 @@ public interface FormationService {
     Formation terminer(Long idFormat);
 
     List<Object> voiretat(Etat etat); // Voir Etat formation
+
+    // Ajout lieu déroulement de la formation::::::::
+    Formation validePresidentielle(Long idFormat);
+
+    Formation valideEnLigne(Long idFormat);
 
     //List<Etat> findByEtat(Etat etat);
 

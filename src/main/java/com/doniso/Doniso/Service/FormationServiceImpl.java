@@ -1,10 +1,7 @@
 package com.doniso.Doniso.Service;
 
 import com.doniso.Doniso.Email.EmailConstructor;
-import com.doniso.Doniso.Models.AuditDemand;
-import com.doniso.Doniso.Models.Etat;
-import com.doniso.Doniso.Models.Formation;
-import com.doniso.Doniso.Models.Participant;
+import com.doniso.Doniso.Models.*;
 import com.doniso.Doniso.Repository.FormationRepo;
 import com.doniso.Doniso.Repository.ParticipantRepo;
 import lombok.AllArgsConstructor;
@@ -74,7 +71,22 @@ public class FormationServiceImpl implements FormationService{
         return formationRepo.findByEtat(etat);
     }
 
+    //::::::::::::::::::::::::::::::
+    @Override
+    public Formation validePresidentielle(Long idFormat) {
+        Formation formation = formationRepo.findLieuFormationByIdFormat(idFormat);
+        formation.setEtatlieu(LieuFormation.PRESIDENTIELLE);
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        return formationRepo.save(formation);
+    }
 
+    @Override
+    public Formation valideEnLigne(Long idFormat) {
+        Formation formation = formationRepo.findLieuFormationByIdFormat(idFormat);
+        formation.setEtatlieu(LieuFormation.EN_LIGNE);
+        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
+        return formationRepo.save(formation);
+    }
 
 
     // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

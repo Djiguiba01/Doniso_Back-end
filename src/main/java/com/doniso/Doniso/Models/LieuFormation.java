@@ -1,9 +1,8 @@
 package com.doniso.Doniso.Models;
 
-public enum DemandLigne {
+public enum LieuFormation {
 
     PRESIDENTIELLE,
 
     EN_LIGNE
-
 }

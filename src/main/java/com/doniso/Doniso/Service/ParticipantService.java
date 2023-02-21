@@ -11,6 +11,7 @@ public interface ParticipantService {
 
 
     // Validation Participant::::::::::::::::::::::::::::::::::::::::::::
+    Participant encoursParticipant(Long idPart);
     Participant valideParticipant(Long idPart);
     Participant nonvalideParticipant(Long idPart);
 

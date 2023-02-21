@@ -47,6 +47,14 @@ public class ParticipantServiceImpl implements ParticipantService{
         return participantRepo.findByStatus(validParticipant);
     }
 
+    @Override
+    public Participant encoursParticipant(Long idPart) {
+        Participant participant = participantRepo.findParticipantByIdPart(idPart);
+        participant.setStatus(ValidParticipant.ENCOURS_TRAITEMENT);
+        //mailSender.send(emailConstructor.constructValideParticipantEmail(participant));// Permet d'envoyer gmail
+        return participantRepo.save(participant);
+    }
+
     // Validation Participant
     @Override
     public Participant valideParticipant(Long idPart) {
