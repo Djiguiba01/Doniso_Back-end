@@ -20,7 +20,7 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotif;
-    @Column(length = 20)
+    @Column(length = 1120)
     private  String titre;
 
     @Column(length = 1000)

@@ -32,7 +32,7 @@ public class Formation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFormat;
 
-   // @Column(length = 15)
+    @Column(length = 1115)
     private  String titre;
 
     private String moduletitre;
