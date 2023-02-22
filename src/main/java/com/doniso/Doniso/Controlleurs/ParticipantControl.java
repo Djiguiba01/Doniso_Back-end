@@ -122,8 +122,8 @@ public class ParticipantControl {
 
     @GetMapping("/voir/{idPart}")
    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public Optional<Participant> read(@PathVariable("idPart") Long idPart){
-        return participantService.lireParID(idPart);
+    public Participant read(@PathVariable("idPart") Long idPart){
+        return participantService.lireParID(idPart).get();
     }
 
 
