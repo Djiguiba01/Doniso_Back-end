@@ -101,6 +101,15 @@ public class FormationControl {
         return  formationService.valideEnLigne(idFormat);
     }
 
+    // Vooir Etat DemandAudit
+    @GetMapping("/lieuformation")
+    public List<String> getEnumValue() {
+        return Arrays.stream(LieuFormation.values())
+                .map(LieuFormation::name)
+                .collect(Collectors.toList());
+    }
+
+
 
     // CRUD REQUETTE:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping("/ajout/{id}")

@@ -120,11 +120,11 @@ public class FormationServiceImpl implements FormationService{
     public Formation modifier(Long idFormat, Formation formation) {
         return formationRepo.findById(idFormat)
                 .map(f-> {
-                    f.setTitre(formation.getTitre());
+                    f.setModuletitre(formation.getModuletitre());
                     f.setLieu(formation.getLieu());
                     f.setDescription(formation.getDescription());
                     f.setContact(formation.getContact());
-                    f.setHeure(formation.getHeure());
+                    f.setHeuretemps(formation.getHeuretemps());
                    /* f.setEmailformateur(formation.getEmailformateur()); */
                     f.setDatedebut(formation.getDatedebut());
                     f.setDatefin(formation.getDatefin());

@@ -35,6 +35,8 @@ public class Formation {
    // @Column(length = 15)
     private  String titre;
 
+    private String moduletitre;
+
     //@Column(length = 15)
     //@Lob
     //@Column(name = "images", length = 900)
@@ -47,8 +49,8 @@ public class Formation {
     @Column(length = 50)
     private  int contact;
 
-    @Column(length = 15)
-    private  int heure;
+
+    private String heuretemps;
 
    /* @NotBlank
     @Size(max = 50)
