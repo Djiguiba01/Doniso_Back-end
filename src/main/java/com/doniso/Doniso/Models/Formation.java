@@ -82,7 +82,7 @@ public class Formation {
     Utilisateurs createur;
 
     @ManyToOne
-            @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     Utilisateurs formateur;
 
     public Formation(Long idformation) {

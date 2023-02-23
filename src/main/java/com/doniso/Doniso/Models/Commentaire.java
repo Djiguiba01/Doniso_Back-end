@@ -32,7 +32,7 @@ public class Commentaire {
   private Formation formation;
 
     @ManyToOne
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     Utilisateurs utilisateurs;
 
     public Commentaire(String description) {
