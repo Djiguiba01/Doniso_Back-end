@@ -74,6 +74,9 @@ public class Formation {
     @Enumerated(EnumType.STRING)
     private LieuFormation etatlieu;
 
+    @Enumerated(EnumType.STRING)
+    private ValidFormateur validFormateur;
+
 
     @OneToMany(mappedBy = "formation")
     List<Commentaire> commentaires = new ArrayList<>();

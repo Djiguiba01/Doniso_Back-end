@@ -16,7 +16,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,7 +100,7 @@ public class FormationControl {
         return  formationService.valideEnLigne(idFormat);
     }
 
-    // Vooir Etat DemandAudit
+    // Voir Etat DemandAudit
     @GetMapping("/lieuformation")
     public List<String> getEnumValue() {
         return Arrays.stream(LieuFormation.values())
@@ -109,6 +108,26 @@ public class FormationControl {
                 .collect(Collectors.toList());
     }
 
+    // Validation Des Formateurs::::::::::::::
+    @PostMapping("/VALIDER/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation valideFormateur(@PathVariable long idFormat) throws IOException {
+        return  formationService.valider(idFormat);
+    }
+    // Encours::::::::::::::
+    @PostMapping("/NON_VALIDER/{idFormat}") // Acception Control:::::::::::::::::::::::::::
+    // @PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Formation nonvalideFormateur(@PathVariable long idFormat) throws IOException {
+        return  formationService.nonvalider(idFormat);
+    }
+
+    // Voir les Etat validation formateur
+    @GetMapping("/voirvalidformateur")
+    public List<String> getEnumVal() {
+        return Arrays.stream(ValidFormateur.values())
+                .map(ValidFormateur::name)
+                .collect(Collectors.toList());
+    }
 
 
     // CRUD REQUETTE:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -133,6 +152,7 @@ public class FormationControl {
         //Utilisateurs formateur = utilisateursRepository.findById(formation.getFormateur().getId()).get();
         notification.setTitre(formation.getTitre());
         formation.setEtat(Etat.INITIE);
+        formation.setValidFormateur(ValidFormateur.NON_VALIDER);
         Utilisateurs createur = utilisateursRepository.findById(id).get();
         formation.setCreateur(createur);
         formation.setFormateur(utilisateursRepository.findByUsername(formateur).get());
@@ -156,6 +176,22 @@ public class FormationControl {
             return formationService.voiretat(Etat.TERMINER);
         }else if (etat.equals("initier")){
             return formationService.voiretat(Etat.INITIE);
+        } else {
+            return "ssss dddd";
+        }
+    }
+
+    // Voir Etat formation de formateur
+    @GetMapping("/regardetat/{valideFormateur}")
+    //@PostAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Object readuu (@PathVariable String valideFormateur){
+        if (valideFormateur.equals("nonvalider")){
+            return formationService.voirformationformateur(ValidFormateur.NON_VALIDER);
+        }
+        else if (valideFormateur.equals("valider")) {
+            return formationService.voirformationformateur(ValidFormateur.VALIDER);
+        }else if (valideFormateur.equals("initier")){
+            return formationService.voirformationformateur(ValidFormateur.INITIE);
         } else {
             return "ssss dddd";
         }

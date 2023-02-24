@@ -1,9 +1,6 @@
 package com.doniso.Doniso.Service;
 
-import com.doniso.Doniso.Models.DemandAudit;
-import com.doniso.Doniso.Models.Etat;
-import com.doniso.Doniso.Models.Formation;
-import com.doniso.Doniso.Models.Participant;
+import com.doniso.Doniso.Models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +29,14 @@ public interface FormationService {
 
     Formation valideEnLigne(Long idFormat);
 
+    Formation nonvalider(Long idFormat);
+
+    Formation valider(Long idFormat);
+
+    List<Object> voirformationformateur(ValidFormateur validFormateur); // Voir Etat formation
+
     //List<Etat> findByEtat(Etat etat);
+
 
 
     // CRUD::::::::::::::::::::::::::::::::::::::::::::::::::::

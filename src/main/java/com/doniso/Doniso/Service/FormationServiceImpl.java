@@ -84,8 +84,27 @@ public class FormationServiceImpl implements FormationService{
     public Formation valideEnLigne(Long idFormat) {
         Formation formation = formationRepo.findLieuFormationByIdFormat(idFormat);
         formation.setEtatlieu(LieuFormation.EN_LIGNE);
-        //mailSender.send(emailConstructor.constructRefusAuditEmail(demandAudit)); // Permet d'envoyer gmail
         return formationRepo.save(formation);
+    }
+
+    @Override
+    public Formation nonvalider(Long idFormat) {
+        Formation formation = formationRepo.findValidFormateurByIdFormat(idFormat);
+        formation.setValidFormateur(ValidFormateur.NON_VALIDER);
+        return formationRepo.save(formation);
+    }
+
+    @Override
+    public Formation valider(Long idFormat) {
+        Formation formation = formationRepo.findValidFormateurByIdFormat(idFormat);
+        formation.setValidFormateur(ValidFormateur.VALIDER);
+        return formationRepo.save(formation);
+    }
+
+    // Voir Formation des formateurs
+    @Override
+    public List<Object> voirformationformateur(ValidFormateur validFormateur) {
+        return formationRepo.findByValidFormateur(validFormateur);
     }
 
 
