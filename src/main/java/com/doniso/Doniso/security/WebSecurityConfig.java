@@ -144,6 +144,8 @@ public class WebSecurityConfig {
               .antMatchers("/commentaire/**").permitAll()
               .antMatchers("/notification/**").permitAll()
               .antMatchers("/utlisateursecond/**").permitAll()
+              .antMatchers("/demandetreformateur/**").permitAll()
+
 
               .anyRequest().authenticated();
            // .and()

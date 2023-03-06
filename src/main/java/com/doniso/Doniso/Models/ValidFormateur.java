@@ -4,7 +4,8 @@ public enum ValidFormateur {
 
     NON_VALIDER,
 
-    VALIDER,
+    VALIDER
 
-    INITIE
+
+    //INITIE
 }

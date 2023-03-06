@@ -142,7 +142,7 @@ public class FormationControl {
         //  Partie Insertion Image
         Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
+        String uploadDir = "C:/Projet_SpringBoot/Doniso/Doniso-front-end/src/assets/images";
        ConfigImages.saveimg(uploadDir, imageName, file);
 
         // Envoie Notification automatiquement lors ajout formation
@@ -190,9 +190,7 @@ public class FormationControl {
         }
         else if (valideFormateur.equals("valider")) {
             return formationService.voirformationformateur(ValidFormateur.VALIDER);
-        }else if (valideFormateur.equals("initier")){
-            return formationService.voirformationformateur(ValidFormateur.INITIE);
-        } else {
+        }else {
             return "ssss dddd";
         }
     }

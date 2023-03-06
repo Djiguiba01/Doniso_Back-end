@@ -97,9 +97,8 @@ public class DemandAuditControl {
         DemandAudit demandAudit1 = new JsonMapper().readValue(donneesaudit, DemandAudit.class);
         demandAudit1.setUtilisateurs(new Utilisateurs(idutilisateur));
         demandAudit1.setPhoto(nomfile);
-        String uploaDir = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
+        String uploaDir = "C:/Projet_SpringBoot/Doniso/Doniso-front-end/src/assets/images";
         ConfigImages.saveimg(uploaDir, nomfile, file);
-
         return  demandAuditService.creer(demandAudit1);
     }
 

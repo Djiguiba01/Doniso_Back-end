@@ -74,7 +74,7 @@ public class AuthController {
   @PostMapping("/connexion")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-    String url = "C:/Users/bddjiguiba/Desktop/Fin_ODC/Doniso-front-end/src/assets/images";
+    String url = "C:/Projet_SpringBoot/Doniso/Doniso-front-end/src/assets/images";
 
     /*
     String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
