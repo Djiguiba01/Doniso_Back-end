@@ -43,7 +43,7 @@ public class EtreFormateurController {
         EtreFormateur demandAudit1 = new JsonMapper().readValue(donneesaudit, EtreFormateur.class);
 //        demandAudit1.setUtilisateurs(new Utilisateurs(idutilisateur));
         demandAudit1.setImagecv(nomfile);
-        String uploaDir = "C:/Projet_SpringBoot/Doniso/Doniso_Dashboard/src/assets/images";
+        String uploaDir = "C:/Users/bddjiguiba/Desktop/Soutenance_ODC/Doniso_Dashboard/src/assets/images";
         ConfigImages.saveimg(uploaDir, nomfile, file);
         return  etreFormateurService.creer(demandAudit1);
     }

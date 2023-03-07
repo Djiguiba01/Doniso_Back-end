@@ -88,8 +88,6 @@ public class ParticipantControl {
     }
 
 
-
-
     // CRUD CONTROL :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping("/ajout/{idFormat}")
     //@PostAuthorize("hasAnyAuthority('ROLE_USER')")

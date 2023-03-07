@@ -142,7 +142,7 @@ public class FormationControl {
         //  Partie Insertion Image
         Formation formation = new JsonMapper().readValue(donneesformation, Formation.class);
         String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "C:/Projet_SpringBoot/Doniso/Doniso-front-end/src/assets/images";
+        String uploadDir = "C:/Users/bddjiguiba/Desktop/Soutenance_ODC/Doniso-front-end/src/assets/images";
        ConfigImages.saveimg(uploadDir, imageName, file);
 
         // Envoie Notification automatiquement lors ajout formation
